@@ -492,7 +492,7 @@ public class PlayerController : MonoBehaviour
         _grabbedItem.Drop(_body.velocity);
         _grabbedItem = null;
     }
-
+    
     private bool SnapToGround()
     {
         if (_stepsSinceLastGrounded > 1 || _stepsSinceLastJump <= 2)
