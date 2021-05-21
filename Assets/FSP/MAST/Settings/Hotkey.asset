@@ -12,31 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8892eee62708edc4e8ecf96da9eb7d21, type: 3}
   m_Name: Hotkey
   m_EditorClassIdentifier: 
-  drawSingleKey: 100
+  drawSingleKey: 268
   drawSingleMod: 1
-  drawContinuousKey: 99
+  drawContinuousKey: 268
   drawContinuousMod: 1
-  paintSquareKey: 112
+  paintSquareKey: 268
   paintSquareMod: 1
-  randomizerKey: 120
+  randomizerKey: 268
   randomizerMod: 1
-  eraseKey: 101
+  eraseKey: 268
   eraseMod: 1
-  newRandomSeedKey: 120
-  newRandomSeedMod: 0
-  toggleGridKey: 103
-  toggleGridMod: 0
-  moveGridUpKey: 119
+  newRandomSeedKey: 268
+  newRandomSeedMod: 1
+  toggleGridKey: 268
+  toggleGridMod: 1
+  moveGridUpKey: 268
   moveGridUpMod: 1
-  moveGridDownKey: 115
+  moveGridDownKey: 268
   moveGridDownMod: 1
-  deselectPrefabKey: 27
-  deselectPrefabMod: 0
-  rotatePrefabKey: 32
-  rotatePrefabMod: 0
-  flipPrefabKey: 102
-  flipPrefabMod: 0
-  paintMaterialKey: 109
+  deselectPrefabKey: 268
+  deselectPrefabMod: 1
+  rotatePrefabKey: 268
+  rotatePrefabMod: 1
+  flipPrefabKey: 264
+  flipPrefabMod: 1
+  paintMaterialKey: 268
   paintMaterialMod: 1
-  restoreMaterialKey: 114
+  restoreMaterialKey: 268
   restoreMaterialMod: 1
