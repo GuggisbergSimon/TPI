@@ -113,6 +113,10 @@ public class MovingRoutine : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!isActiveAndEnabled)
+        {
+            return;
+        }
         //todo update gizmos positions if modifying in runtime
         if (Application.isEditor && !Application.isPlaying)
         {
