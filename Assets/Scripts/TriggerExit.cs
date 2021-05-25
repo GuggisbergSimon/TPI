@@ -9,11 +9,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Collider))]
 public class TriggerExit : MonoBehaviour
 {
-    [Serializable]
-    public class TriggerExitEvent : UnityEvent<Transform>
-    {
-    }
-
+    [Serializable] public class TriggerExitEvent : UnityEvent<Transform> {}
     [SerializeField] private TriggerExitEvent onInteract = new TriggerExitEvent();
     [SerializeField] private string[] triggerTags = {"Player"};
 
