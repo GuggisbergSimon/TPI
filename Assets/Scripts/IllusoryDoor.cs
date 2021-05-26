@@ -4,6 +4,7 @@ using UnityEngine;
 public class IllusoryDoor : MonoBehaviour
 {
     [SerializeField] private float distToCheck = 10f;
+    [SerializeField, Range(0f, 90f)] private float angleDiffMax = 90f;
     private Collider[] _colliders = default;
 
     private void Start()
@@ -16,7 +17,8 @@ public class IllusoryDoor : MonoBehaviour
         Transform p = GameManager.Instance.LevelManager.Player.transform;
         if (!(Vector3.Distance(p.position, transform.position) < distToCheck)) return;
 
-        bool b = Vector3.Dot(p.forward, p.position - transform.position) > 0;
+        bool b = Vector3.Dot(p.forward, Vector3.ProjectOnPlane(p.position - transform.position, Vector3.up)) >
+                 Mathf.Cos(angleDiffMax);
         foreach (var c in _colliders)
         {
             c.isTrigger = b;
@@ -26,6 +28,6 @@ public class IllusoryDoor : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;
-        Gizmos.DrawCube(transform.position, Vector3.one);
+        Gizmos.DrawCube(transform.position + Vector3.up * 0.5f, Vector3.one);
     }
 }

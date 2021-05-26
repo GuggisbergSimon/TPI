@@ -11427,6 +11427,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IllusoryDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 1498780954593547146, guid: d59ec5121ec0e28438a227b4da8ba97a, type: 3}
+      propertyPath: angleDiffMax
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 1498780954593547147, guid: d59ec5121ec0e28438a227b4da8ba97a, type: 3}
       propertyPath: m_RootOrder
       value: 14
