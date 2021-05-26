@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 838402415567647970}
   - component: {fileID: 838402415567647969}
   - component: {fileID: 838402415567647968}
-  - component: {fileID: 838402415567647975}
   - component: {fileID: 838402415567647974}
   - component: {fileID: 838402415567647973}
+  - component: {fileID: 838402415567647975}
   m_Layer: 0
   m_Name: pressurePlate
   m_TagString: Untagged
@@ -79,25 +79,6 @@ MonoBehaviour:
   triggerTags:
   - Player
   - Item
---- !u!95 &838402415567647975
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838402415567647972}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cf17dec282fa0384589bc79e9372c766, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &838402415567647974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +128,25 @@ MonoBehaviour:
   - Player
   - Item
   timeToStay: 1
+--- !u!95 &838402415567647975
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838402415567647972}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cf17dec282fa0384589bc79e9372c766, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &838402416728329273
 PrefabInstance:
   m_ObjectHideFlags: 0
