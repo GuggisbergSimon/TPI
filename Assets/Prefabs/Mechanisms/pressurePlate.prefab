@@ -78,6 +78,7 @@ MonoBehaviour:
         m_CallState: 2
   triggerTags:
   - Player
+  - Item
 --- !u!95 &838402415567647975
 Animator:
   serializedVersion: 3
@@ -126,6 +127,7 @@ MonoBehaviour:
         m_CallState: 2
   triggerTags:
   - Player
+  - Item
 --- !u!114 &838402415567647973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +145,7 @@ MonoBehaviour:
       m_Calls: []
   triggerTags:
   - Player
+  - Item
   timeToStay: 1
 --- !u!1001 &838402416728329273
 PrefabInstance:
