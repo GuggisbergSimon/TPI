@@ -20,7 +20,10 @@ public class TriggerStay : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        StopCoroutine(_waitCoroutine);
+        if (triggerTags.Any(t => other.transform.CompareTag(t)) && _waitCoroutine != null)
+        {
+            StopCoroutine(_waitCoroutine);
+        }
     }
 
     private IEnumerator Wait(Transform t)
