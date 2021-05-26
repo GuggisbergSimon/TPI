@@ -4,8 +4,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-//todo test
-
 /// <summary>
 /// Class calling UnityEvents when a collider stays in the trigger of this object for a certain time
 /// </summary>

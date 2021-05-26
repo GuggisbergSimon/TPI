@@ -1,6 +1,6 @@
 //some parts of the code taken from catlikecoding
 
-//todo snap player to ground if on moving platform descending
+//todo better snap player to ground if on moving platform descending
 //todo tweak values - wip
 
 using System.Collections;
