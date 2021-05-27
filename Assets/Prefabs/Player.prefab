@@ -103,7 +103,7 @@ MonoBehaviour:
   cam: {fileID: 2451131330218545398}
   invertAxisX: 0
   invertAxisY: 0
-  maxDistanceInteractable: 3
+  maxDistanceInteractable: 5
   layerInteractable:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -266,7 +266,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1000
+  far clip plane: 1500
   field of view: 60
   orthographic: 0
   orthographic size: 5

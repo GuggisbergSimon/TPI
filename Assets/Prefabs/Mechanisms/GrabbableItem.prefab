@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9192689443938676550}
   - component: {fileID: 9192689443938676551}
   m_Layer: 0
-  m_Name: Puzzle_Control_Pressure_Plate
+  m_Name: GrabbableItem
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,8 +62,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ec0d0c4e6a7124fa4dbef854f85d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeedAdjustment: 15
-  maxAccelerationAdjustment: 50
+  maxSpeedAdjustment: 10
+  maxAccelerationAdjustment: 100
   nameLayerNoCollisionsPlayer: Player
   percentTransparent: 0.5
 --- !u!114 &9192689443938676551
