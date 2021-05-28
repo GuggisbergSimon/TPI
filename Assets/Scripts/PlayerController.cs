@@ -1,6 +1,6 @@
 //some parts of the code taken from catlikecoding
 
-//todo snap player to ground if on moving platform descending
+//todo better snap player to ground if on moving platform descending
 //todo tweak values - wip
 
 using System.Collections;
@@ -263,20 +263,13 @@ public class PlayerController : MonoBehaviour
         float speed = OnGround && Input.GetButton("Sprint") ? maxSprintSpeed : maxSpeed;
         Vector3 xAxis = _rightAxis;
         Vector3 zAxis = _forwardAxis;
-
-        //todo debug normal not counted for certain stairs ?
-        //todo move properly along xAxis and zAxis
+        
         xAxis = ProjectDirectionOnPlane(xAxis, _contactNormal);
-        Debug.DrawLine(transform.position, transform.position + xAxis * 3f, Color.red);
-        Debug.DrawLine(transform.position, transform.position + _rightAxis * 3f, Color.yellow);
         zAxis = ProjectDirectionOnPlane(zAxis, _contactNormal);
-        Debug.DrawLine(transform.position, transform.position + _forwardAxis * 3f, Color.cyan);
-        Debug.DrawLine(transform.position, transform.position + zAxis * 3f, Color.blue);
 
         Vector3 relativeVelocity = _velocity - _connectionVelocity;
         float currentX = Vector3.Dot(relativeVelocity, xAxis);
-        float currentZ = Vector3.Dot(relativeVelocity, _forwardAxis);
-        Debug.Log(currentZ);
+        float currentZ = Vector3.Dot(relativeVelocity, zAxis);
 
         float maxSpeedChange = acceleration * Time.deltaTime;
 
@@ -499,7 +492,7 @@ public class PlayerController : MonoBehaviour
         _grabbedItem.Drop(_body.velocity);
         _grabbedItem = null;
     }
-
+    
     private bool SnapToGround()
     {
         if (_stepsSinceLastGrounded > 1 || _stepsSinceLastJump <= 2)

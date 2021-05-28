@@ -14,6 +14,7 @@ public class MovingRoutine : MonoBehaviour
     [SerializeField, Tooltip("Global coordinates")] private Point[] points = null;
     private Vector3 _initPos;
     private Quaternion _initRot;
+    private int _initNumberMoves;
     private int _indexPoints;
     private Coroutine _movingCoroutine;
     private bool _isAscending;
@@ -39,6 +40,7 @@ public class MovingRoutine : MonoBehaviour
     {
         _initPos = transform.position;
         _initRot = transform.rotation;
+        _initNumberMoves = numberMoves;
         if (isActive)
         {
             Activate();
@@ -46,7 +48,7 @@ public class MovingRoutine : MonoBehaviour
     }
 
     /// <summary>
-    /// Starts the movingCoroutine if it wasn't turned on
+    /// Starts the movingCoroutine if it wasn't turned on, adding the initial number of moves in order to conclude the animation
     /// </summary>
     public void Activate()
     {
@@ -55,9 +57,20 @@ public class MovingRoutine : MonoBehaviour
         {
             StopCoroutine(_movingCoroutine);
         }
+        numberMoves = _initNumberMoves;
 
         _movingCoroutine = StartCoroutine(Moving());
     }
+
+    //todo add proper interpolation from position to the end when disabling it
+    /*public void Disable()
+    {
+        isActive = false;
+        if (_movingCoroutine != null)
+        {
+            StopCoroutine(_movingCoroutine);
+        }
+    }*/
 
     private IEnumerator Moving()
     {
@@ -113,6 +126,10 @@ public class MovingRoutine : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!isActiveAndEnabled)
+        {
+            return;
+        }
         //todo update gizmos positions if modifying in runtime
         if (Application.isEditor && !Application.isPlaying)
         {
