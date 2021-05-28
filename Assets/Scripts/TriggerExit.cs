@@ -15,6 +15,7 @@ public class TriggerExit : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        //todo check if triggerstay and handle it correctly
         if (triggerTags.Any(t => other.transform.CompareTag(t)))
         {
             onInteract.Invoke(other.transform);

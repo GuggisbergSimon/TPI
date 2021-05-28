@@ -17,8 +17,9 @@ public class IllusoryDoor : MonoBehaviour
         Transform p = GameManager.Instance.LevelManager.Player.transform;
         if (!(Vector3.Distance(p.position, transform.position) < distToCheck)) return;
 
-        bool b = Vector3.Dot(p.forward, Vector3.ProjectOnPlane(p.position - transform.position, Vector3.up)) >
-                 Mathf.Cos(angleDiffMax);
+        bool b = Vector3.Dot(p.forward, Vector3.ProjectOnPlane(
+            p.position - transform.position, Vector3.up
+        )) > Mathf.Cos(angleDiffMax);
         foreach (var c in _colliders)
         {
             c.isTrigger = b;
