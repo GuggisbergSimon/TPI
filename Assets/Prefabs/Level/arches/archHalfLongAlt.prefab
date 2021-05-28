@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8996013393731191315}
   m_Layer: 0
-  m_Name: archHalfLong
+  m_Name: archHalfLongAlt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3077606424160249744, guid: ae371218efc80ed4aa09d6177eeb315f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 3077606424160249744, guid: ae371218efc80ed4aa09d6177eeb315f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -132,7 +132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3077606424160249744, guid: ae371218efc80ed4aa09d6177eeb315f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.500001
+      value: 5.6
       objectReference: {fileID: 0}
     - target: {fileID: 3077606424160249744, guid: ae371218efc80ed4aa09d6177eeb315f, type: 3}
       propertyPath: m_LocalPosition.y
