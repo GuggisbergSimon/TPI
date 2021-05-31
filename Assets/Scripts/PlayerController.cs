@@ -1,7 +1,8 @@
 //some parts of the code taken from catlikecoding
 
-//todo better snap player to ground if on moving platform descending
 //todo tweak values - wip
+//TODO fix player able to wall jump, more difficult but still doable
+//todo credit : "AMONG DRIP" (https://skfb.ly/6XFtz) by RTFKT Studios is licensed under Creative Commons Attribution-NonCommercial (http://creativecommons.org/licenses/by-nc/4.0/).
 
 using System.Collections;
 using Gravity;
@@ -43,6 +44,8 @@ public class PlayerController : MonoBehaviour
     private int _jumpPhase;
     private float _minGroundDotProduct, _minStairsDotProduct;
     private int _stepsSinceLastGrounded, _stepsSinceLastJump;
+    private Vector3 _lastPos;
+    private float _timeRecording;
 
     private enum PlayerState
     {
@@ -78,6 +81,8 @@ public class PlayerController : MonoBehaviour
     {
         _body = GetComponent<Rigidbody>();
         _body.useGravity = false;
+        _lastPos = transform.position;
+        _timeRecording = Time.time;
         OnValidate();
     }
 
@@ -85,6 +90,10 @@ public class PlayerController : MonoBehaviour
     {
         if (_state == PlayerState.Pause)
         {
+            if (Input.GetButtonDown("Cancel"))
+            {
+                GameManager.Instance.UiManager.PauseManager.Pause(false);
+            }
             return;
         }
 
@@ -94,11 +103,15 @@ public class PlayerController : MonoBehaviour
         AdjustCursor();
         AdjustRotationCam();
 
+        //increments the travelled distance to the statistics, divided by 2 because of the scale
+        GameManager.Instance.StatisticsManager.DistanceWalked += Vector3.Distance(_lastPos, transform.position) / 2f;
+        _lastPos = transform.position;
+
         //opens the pause menu
         if (Input.GetButtonDown("Cancel"))
         {
             Pause(true);
-            GameManager.Instance.UIManager.Pause(true);
+            GameManager.Instance.UiManager.PauseManager.Pause(true);
         }
 
 
@@ -204,8 +217,13 @@ public class PlayerController : MonoBehaviour
     public void Pause(bool pause)
     {
         _state = pause ? PlayerState.Pause : PlayerState.Idle;
-        if (!pause)
+        if (pause)
         {
+            GameManager.Instance.StatisticsManager.TimeSpent += Time.time - _timeRecording;
+        }
+        else
+        {
+            _timeRecording = Time.time;
             CheckDrop();
         }
     }
@@ -243,7 +261,7 @@ public class PlayerController : MonoBehaviour
 
     private void AdjustRotationBody()
     {
-        //todo smoothen rotation cam if change of gravity (see gravity cube for ex)
+        //todo smoothen rotation cam if change of gravity (see extreme examples with a gravity cube)
 
         //the rotation applied due to the gravity
         Quaternion gravityRot = Quaternion.FromToRotation(transform.up, _upAxis);
@@ -290,12 +308,12 @@ public class PlayerController : MonoBehaviour
             {
                 Vector3 camForward = cam.transform.forward;
                 Vector3 project = Vector3.ProjectOnPlane(diff, camForward);
-                GameManager.Instance.UIManager.AdjustCursor(true,
+                GameManager.Instance.UiManager.HudManager.AdjustCursor(true,
                     Vector3.SignedAngle(cam.transform.up, project, camForward));
             }
             else
             {
-                GameManager.Instance.UIManager.AdjustCursor(false, 0f);
+                GameManager.Instance.UiManager.HudManager.AdjustCursor(false, 0f);
             }
         }
     }
@@ -368,7 +386,8 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (upDot > -0.01f)
+                //originally was -StaticsValues.SMALLEST_INT instead of 0, but led to bugs
+                if (upDot > 0f)
                 {
                     _steepContactCount += 1;
                     _steepNormal += normal;
@@ -488,7 +507,7 @@ public class PlayerController : MonoBehaviour
 
     private void Drop()
     {
-        GameManager.Instance.UIManager.AdjustCursor(false, 0f);
+        GameManager.Instance.UiManager.HudManager.AdjustCursor(false, 0f);
         _grabbedItem.Drop(_body.velocity);
         _grabbedItem = null;
     }
@@ -573,7 +592,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Throwing(float a, float b, float speed)
     {
-        GameManager.Instance.UIManager.LoadingFill(a);
+        GameManager.Instance.UiManager.HudManager.LoadingFill(a);
         for (float t = 0; t < 1f; t += Time.deltaTime * speed)
         {
             if (Input.GetButtonUp("Throw"))
@@ -582,11 +601,11 @@ public class PlayerController : MonoBehaviour
                 break;
             }
 
-            GameManager.Instance.UIManager.LoadingFill(Mathf.Lerp(a, b, t));
+            GameManager.Instance.UiManager.HudManager.LoadingFill(Mathf.Lerp(a, b, t));
             yield return null;
         }
 
-        GameManager.Instance.UIManager.LoadingFill(0f);
+        GameManager.Instance.UiManager.HudManager.LoadingFill(0f);
         Throw(1f);
     }
 

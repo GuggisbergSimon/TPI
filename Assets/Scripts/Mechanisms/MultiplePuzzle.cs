@@ -20,6 +20,10 @@ public class MultiplePuzzle : MonoBehaviour
         {
             _currentNbr++;
         }
+        else if (errorsReset && puzzlePieces[0].GetInstanceID() == t.gameObject.GetInstanceID())
+        {
+            _currentNbr = 1;
+        }
         else if (errorsReset)
         {
             _currentNbr = 0;

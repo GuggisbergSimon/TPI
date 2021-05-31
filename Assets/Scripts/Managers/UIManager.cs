@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,8 +14,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider masterSlider, musicSlider, soundsSlider;
     [SerializeField] private Slider sensitivityXSlider, sensitivityYSlider;
 
-    //todo find a way to reduce the numbers of parameters in editor. maybe a settings manager ?
-    
+    private HUDManager _hudManager;
+    public HUDManager HudManager => _hudManager;
+    private PauseManager _pauseManager;
+    public PauseManager PauseManager => _pauseManager;
+
+    private void Awake()
+    {
+        _hudManager = FindObjectOfType<HUDManager>();
+        _pauseManager = FindObjectOfType<PauseManager>();
+    }
+
+    /*
     /// <summary>
     /// Changes the master volume
     /// </summary>
@@ -41,27 +52,10 @@ public class UIManager : MonoBehaviour
     {
         GameManager.Instance.SoundManager.SetFloat("SoundsVolume", volume);
     }
+    */
 
-    /// <summary>
-    /// Opens/closes the pause panel while adjusting timescale instantaneously
-    /// </summary>
-    /// <param name="isPausing">Wether we pause, or no</param>
-    public void Pause(bool isPausing)
-    {
-        Time.timeScale = isPausing ? 0f : 1f;
-        pausePanel.SetActive(isPausing);
-        GameManager.Instance.LevelManager.Player.Pause(isPausing);
-        pausePanel.GetComponentInChildren<Selectable>().Select();
-    }
 
-    /// <summary>
-    /// Quitting the game, through the Game Manager
-    /// </summary>
-    public void QuitGame()
-    {
-        GameManager.Instance.QuitGame();
-    }
-
+    /*
     /// <summary>
     /// Updates the loading circle near the visor to the given percentage
     /// </summary>
@@ -81,7 +75,9 @@ public class UIManager : MonoBehaviour
         cursorAnchor.gameObject.SetActive(isVisible);
         cursorAnchor.rotation = Quaternion.Euler(0f, 0f, angle);
     }
-
+    */
+    
+    /*
     /// <summary>
     /// Changes the sensitivity of the mouse on the x axis to the value
     /// </summary>
@@ -132,4 +128,5 @@ public class UIManager : MonoBehaviour
         sensitivityXSlider.value = p.MouseSensitivity.x;
         sensitivityYSlider.value = p.MouseSensitivity.y;
     }
+    */
 }
