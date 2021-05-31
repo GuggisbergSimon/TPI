@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7c85afba134a3104a8a0f28887546397
+guid: bf2def266f136de46bd02f840fb4f229
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Diogenes
+  - Vipnagorgialla
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

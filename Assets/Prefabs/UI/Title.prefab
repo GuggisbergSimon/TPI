@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8824985338541637528}
   - component: {fileID: 8824985338541637531}
   m_Layer: 5
-  m_Name: PauseTitle
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,8 +69,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 66e16865d57170d4482030fce4cd0490, type: 2}
-  m_sharedMaterial: {fileID: -3804184046900238317, guid: 66e16865d57170d4482030fce4cd0490, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: daa7fc845e365d24b82af95470a9a25b, type: 2}
+  m_sharedMaterial: {fileID: 6307715277547606229, guid: daa7fc845e365d24b82af95470a9a25b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

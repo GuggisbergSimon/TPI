@@ -320,10 +320,10 @@ public class PlayerController : MonoBehaviour
 
     private void Jump(Vector3 gravity)
     {
-        //the jump is always directed in the upAxis, can be changed to the ground normal but more interesting for physics based games
         //jumpPhase describes the number of times the player has jumped
         Vector3 jumpDirection;
-        /*if (OnGround)
+        /*
+        if (OnGround)
         {
             jumpDirection = _contactNormal;
         }
@@ -331,7 +331,8 @@ public class PlayerController : MonoBehaviour
         {
             jumpDirection = _steepNormal;
             _jumpPhase = 0;
-        }*/
+        }
+        */
         if (OnGround || OnSteep)
         {
             jumpDirection = _upAxis;

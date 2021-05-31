@@ -67,7 +67,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &2451131329314854620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
   jumpHeight: 1
   maxAirJumps: 0
   maxGroundAngle: 35
-  maxStairsAngle: 60
+  maxStairsAngle: 40
   maxSnapSpeed: 100
   probeDistance: 2.1
   probeMask:
@@ -99,8 +99,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   mouseSensitivity: {x: 1000, y: 1000}
-  minAngleLook: 70
-  maxAngleLook: 70
+  minAngleLook: 80
+  maxAngleLook: 80
   cam: {fileID: 2451131330218545398}
   invertAxisX: 0
   invertAxisY: 0
@@ -271,7 +271,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 183
@@ -335,7 +335,7 @@ Projector:
   m_Enabled: 1
   serializedVersion: 2
   m_NearClipPlane: 0.1
-  m_FarClipPlane: 50
+  m_FarClipPlane: 300
   m_FieldOfView: 60
   m_AspectRatio: 1
   m_Orthographic: 1
@@ -450,7 +450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ffd0560aa5c00a4e911075caef59679, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ffd0560aa5c00a4e911075caef59679, type: 3}
       propertyPath: m_LocalPosition.y
