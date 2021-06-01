@@ -6,17 +6,17 @@ public class StatisticsManager : MonoBehaviour
     public float DistanceWalked { get; set; }
     public float TimeSpent { get; set; }
     public int Score { get; set; }
-
-    public void Reset()
-    {
-        VasesPicked = 0;
-        DistanceWalked = 0f;
-        TimeSpent = 0f;
-    }
+    
+    public int NbrJumps { get; set; }
 
     public void Save()
     {
         //todo implement
+    }
+
+    public int GetScore()
+    {
+        return Mathf.CeilToInt(Score / (NbrJumps + 1));
     }
 
     public void Load()

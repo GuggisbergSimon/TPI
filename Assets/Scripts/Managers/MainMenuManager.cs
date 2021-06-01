@@ -7,7 +7,6 @@ public class MainMenuManager : MonoBehaviour
     /// </summary>
     public void LoadLevel()
     {
-        GameManager.Instance.StatisticsManager.Reset();
         GameManager.Instance.LoadLevel("SampleScene");
     }
 

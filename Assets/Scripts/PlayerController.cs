@@ -362,6 +362,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        GameManager.Instance.StatisticsManager.NbrJumps++;
         _stepsSinceLastJump = 0;
         _jumpPhase += 1;
         float jumpSpeed = Mathf.Sqrt(2f * gravity.magnitude * jumpHeight);

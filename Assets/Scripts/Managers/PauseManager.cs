@@ -40,9 +40,10 @@ public class PauseManager : MonoBehaviour
         StatisticsManager sm = GameManager.Instance.StatisticsManager;
         foreach (var statisticsNbr in statistics)
         {
-            statisticsNbr.text = sm.Score + "\n" + sm.VasesPicked + "\n " +
+            statisticsNbr.text = sm.GetScore() + "\n" + sm.VasesPicked + "\n" +
+                                 sm.NbrJumps + "\n" +
                                  Mathf.RoundToInt(sm.DistanceWalked) + "m\n " +
-                                 Mathf.RoundToInt(sm.TimeSpent) + "s";
+                                 Mathf.RoundToInt(sm.TimeSpent) + "s\n";
         }
     }
 

@@ -10,12 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 838402415567647970}
   - component: {fileID: 838402415567647969}
-  - component: {fileID: 838402415567647968}
-  - component: {fileID: 838402415567647974}
-  - component: {fileID: 838402415567647973}
+  - component: {fileID: 3613326632465882179}
   - component: {fileID: 838402415567647975}
   m_Layer: 0
-  m_Name: pressurePlate
+  m_Name: PressurePlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +47,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 0.5, z: 2}
   m_Center: {x: 0, y: 0.25, z: 0}
---- !u!114 &838402415567647968
+--- !u!114 &3613326632465882179
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,76 +56,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 838402415567647972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2f220b3271a6f843a039b0d49f9d10b, type: 3}
+  m_Script: {fileID: 11500000, guid: db0151778a59b8e4f8e67d0b6c51acf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 838402415567647975}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: PressureDown
-          m_BoolArgument: 0
-        m_CallState: 2
-  triggerTags:
-  - Player
-  - Item
---- !u!114 &838402415567647974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838402415567647972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3aee04abb8c0dd54da2ee272e9eef992, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 838402415567647975}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: PressureUp
-          m_BoolArgument: 0
-        m_CallState: 2
-  triggerTags:
-  - Player
-  - Item
---- !u!114 &838402415567647973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838402415567647972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec130d1d857100f4c882c08ceff01f0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onInteract:
+  onStay:
     m_PersistentCalls:
       m_Calls: []
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+  timeToStay: 1
   triggerTags:
   - Player
   - Item
-  timeToStay: 1
+  needConstantPressure: 1
 --- !u!95 &838402415567647975
 Animator:
   serializedVersion: 3
@@ -154,6 +96,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 838402415567647970}
     m_Modifications:
+    - target: {fileID: 1193345960489205096, guid: 5139a495dca418c478fe2f006affd8f7, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f903d342eafcfc4a80bf08cfb4867e8, type: 2}
     - target: {fileID: 5223672722760278554, guid: 5139a495dca418c478fe2f006affd8f7, type: 3}
       propertyPath: m_RootOrder
       value: 0
