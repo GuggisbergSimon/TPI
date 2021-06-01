@@ -18,34 +18,33 @@ public class IllusoryDoor : MonoBehaviour
 
     private void Update()
     {
-        Transform p = GameManager.Instance.LevelManager.Player.transform;
-        bool isCloseEnough = Vector3.Distance(p.position, transform.position) < distToCheck;
+        Transform player = GameManager.Instance.LevelManager.Player.transform;
+        bool isCloseEnough = Vector3.Distance(player.position, transform.position) < distToCheck;
         if (_isOpen && !isCloseEnough)
         {
-            Open(false);
+            Toggle(false);
         }
 
         if (!isCloseEnough) return;
 
-        bool b = Vector3.Dot(p.forward, Vector3.ProjectOnPlane(
-            p.position - transform.position, transform.up
-        )) > Mathf.Cos(angleDiffMax);
-        Open(b);
+        Vector3 illusoryToPlayer = player.position - transform.position;
+        illusoryToPlayer = Vector3.ProjectOnPlane(illusoryToPlayer, Vector3.up);
+        Toggle(Vector3.Dot(player.forward,illusoryToPlayer) > Mathf.Cos(angleDiffMax));
     }
 
-    private void Open(bool value)
+    private void Toggle(bool letsGoThrough)
     {
-        _isOpen = value;
+        _isOpen = letsGoThrough;
         foreach (var collider1 in _colliders)
         {
-            collider1.isTrigger = value;
+            collider1.isTrigger = letsGoThrough;
         }
 
         if (enableSpriteBehaviour)
         {
             foreach (var s in _sprites)
             {
-                s.gameObject.SetActive(!value);
+                s.gameObject.SetActive(!letsGoThrough);
             }
         }
     }

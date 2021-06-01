@@ -186,10 +186,6 @@ public class PlayerController : MonoBehaviour
 
         if (dotVelocityUp < 0 && !OnGround && !OnSteep)
         {
-            /*if (!_isFalling && !_isGrounded)
-            {
-                _isFalling = true;
-            }*/
             _velocity += (fallMultiplier - 1) * Time.deltaTime * gravity;
         }
         //applies lowJumpMultiplier
