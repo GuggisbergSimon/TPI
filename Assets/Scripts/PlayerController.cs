@@ -474,35 +474,48 @@ public class PlayerController : MonoBehaviour
 
     private void CheckInteraction()
     {
-        if (Input.GetButtonDown("Interact"))
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out var hit, maxDistanceInteractable,
+            layerInteractable) && hit.collider.transform.CompareTag("Item"))
         {
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out var hit, maxDistanceInteractable,
-                layerInteractable) && hit.collider.transform.CompareTag("Item"))
+            ItemInteract i = hit.collider.transform.GetComponent<ItemInteract>();
+            if (i != null)
             {
-                ItemInteract i = hit.collider.transform.GetComponent<ItemInteract>();
-                if (i != null)
+                if (Input.GetButtonDown("Interact"))
                 {
                     i.Interact();
                 }
+                else
+                {
+                    GameManager.Instance.UiManager.HudManager.HelpInteract(true);
+                    return;
+                }
             }
         }
+        GameManager.Instance.UiManager.HudManager.HelpInteract(false);
     }
 
     private void CheckGrab()
     {
-        if (Input.GetButtonDown("Grab") && _grabbedItem == null)
+        if (_grabbedItem == null && Physics.Raycast(cam.transform.position, cam.transform.forward, out var hit,
+            maxDistanceInteractable,
+            layerInteractable) && hit.transform.CompareTag("Item"))
         {
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out var hit, maxDistanceInteractable,
-                layerInteractable) && hit.transform.CompareTag("Item"))
+            ItemGrab g = hit.transform.GetComponent<ItemGrab>();
+            if (g != null)
             {
-                ItemGrab g = hit.transform.GetComponent<ItemGrab>();
-                if (g != null)
+                if (Input.GetButtonDown("Grab"))
                 {
                     g.Grab(cam.transform);
                     _grabbedItem = g;
                 }
+                else
+                {
+                    GameManager.Instance.UiManager.HudManager.HelpGrab(true);
+                    return;
+                }
             }
         }
+        GameManager.Instance.UiManager.HudManager.HelpGrab(false);
     }
 
     private void CheckDrop()

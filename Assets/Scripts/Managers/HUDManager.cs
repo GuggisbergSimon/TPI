@@ -5,6 +5,7 @@ public class HUDManager : MonoBehaviour
 {
     [SerializeField] private Image loadingImg;
     [SerializeField] private Transform cursorAnchor;
+    [SerializeField] private Transform helpGrab, helpInteract;
     
     /// <summary>
     /// Updates the loading circle near the visor to the given percentage
@@ -13,6 +14,17 @@ public class HUDManager : MonoBehaviour
     public void LoadingFill(float percent)
     {
         loadingImg.fillAmount = percent;
+    }
+
+    public void HelpGrab(bool value)
+    {
+        helpGrab.gameObject.SetActive(value);
+    }
+    
+    
+    public void HelpInteract(bool value)
+    {
+        helpInteract.gameObject.SetActive(value);
     }
     
     /// <summary>
