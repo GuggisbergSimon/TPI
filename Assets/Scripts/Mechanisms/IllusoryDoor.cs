@@ -5,24 +5,48 @@ public class IllusoryDoor : MonoBehaviour
 {
     [SerializeField] private float distToCheck = 10f;
     [SerializeField, Range(0f, 90f)] private float angleDiffMax = 90f;
-    private Collider[] _colliders = default;
+    [SerializeField] private bool enableSpriteBehaviour = false;
+    private Collider[] _colliders;
+    private SpriteRenderer[] _sprites;
+    private bool _isOpen;
 
     private void Start()
     {
         _colliders = GetComponentsInChildren<Collider>();
+        _sprites = GetComponentsInChildren<SpriteRenderer>();
     }
 
     private void Update()
     {
         Transform p = GameManager.Instance.LevelManager.Player.transform;
-        if (!(Vector3.Distance(p.position, transform.position) < distToCheck)) return;
+        bool isCloseEnough = Vector3.Distance(p.position, transform.position) < distToCheck;
+        if (_isOpen && !isCloseEnough)
+        {
+            Open(false);
+        }
+
+        if (!isCloseEnough) return;
 
         bool b = Vector3.Dot(p.forward, Vector3.ProjectOnPlane(
-            p.position - transform.position, Vector3.up
+            p.position - transform.position, transform.up
         )) > Mathf.Cos(angleDiffMax);
-        foreach (var c in _colliders)
+        Open(b);
+    }
+
+    private void Open(bool value)
+    {
+        _isOpen = value;
+        foreach (var collider1 in _colliders)
         {
-            c.isTrigger = b;
+            collider1.isTrigger = value;
+        }
+
+        if (enableSpriteBehaviour)
+        {
+            foreach (var s in _sprites)
+            {
+                s.gameObject.SetActive(!value);
+            }
         }
     }
 

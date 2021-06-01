@@ -47,10 +47,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 _lastPos;
     private float _timeRecording;
 
-    private enum PlayerState
+    public enum PlayerState
     {
         Pause,
-        Idle
+        Idle,
+        End
     }
 
     private PlayerState _state = PlayerState.Idle;
@@ -88,13 +89,18 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (_state == PlayerState.Pause)
+        switch (_state)
         {
-            if (Input.GetButtonDown("Cancel"))
+            case PlayerState.Pause:
             {
-                GameManager.Instance.UiManager.PauseManager.Pause(false);
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    GameManager.Instance.UiManager.PauseManager.Pause(false);
+                }
+                return;
             }
-            return;
+            case PlayerState.End:
+                return;
         }
 
         CheckInteraction();
@@ -110,7 +116,7 @@ public class PlayerController : MonoBehaviour
         //opens the pause menu
         if (Input.GetButtonDown("Cancel"))
         {
-            Pause(true);
+            Pause(PlayerState.Pause);
             GameManager.Instance.UiManager.PauseManager.Pause(true);
         }
 
@@ -213,18 +219,19 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Pauses the player's behaviour
     /// </summary>
-    /// <param name="pause">Wether the player's behaviour is paused, or not</param>
-    public void Pause(bool pause)
+    /// <param name="state">the new state of the player</param>
+    public void Pause(PlayerState state)
     {
-        _state = pause ? PlayerState.Pause : PlayerState.Idle;
-        if (pause)
+        _state = state;
+        switch (state)
         {
-            GameManager.Instance.StatisticsManager.TimeSpent += Time.time - _timeRecording;
-        }
-        else
-        {
-            _timeRecording = Time.time;
-            CheckDrop();
+            case PlayerState.Pause:
+                GameManager.Instance.StatisticsManager.TimeSpent += Time.time - _timeRecording;
+                break;
+            case PlayerState.Idle:
+                _timeRecording = Time.time;
+                CheckDrop();
+                break;
         }
     }
 

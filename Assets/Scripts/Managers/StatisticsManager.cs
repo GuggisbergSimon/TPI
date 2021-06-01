@@ -5,7 +5,6 @@ public class StatisticsManager : MonoBehaviour
     public int VasesPicked { get; set; }
     public float DistanceWalked { get; set; }
     public float TimeSpent { get; set; }
-    
     public int Score { get; set; }
 
     public void Reset()
