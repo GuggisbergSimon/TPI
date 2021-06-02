@@ -6,7 +6,7 @@ using UnityEngine;
 public class Sine : MonoBehaviour
 {
     [SerializeField, Tooltip("amplitude of the sine wave")] private float amplitude = 1f;
-    [SerializeField, Min(StaticsValues.SMALLEST_INT), Tooltip("period of the sine wave")] private float period = 1f;
+    [SerializeField, Min(StaticsValues.SMALLEST_FLOAT), Tooltip("period of the sine wave")] private float period = 1f;
     [SerializeField, Tooltip("phase shift of the sine wave")] private float phaseShift = 0f;
     private Vector3 _initPos;
 

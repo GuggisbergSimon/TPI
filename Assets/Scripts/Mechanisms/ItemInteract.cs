@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Class making an object interactable by the player
@@ -14,12 +15,21 @@ public class ItemInteract : MonoBehaviour
     }
 
     [SerializeField] private ButtonType type = ButtonType.Repeat;
-    [SerializeField] private UnityEvent onInteract = new UnityEvent();
+    [Serializable] public class InteractEvent : UnityEvent<Transform> {}
+    [SerializeField] private InteractEvent onInteract = new InteractEvent();
     [SerializeField, Tooltip("If the type is OnOff, it will be called in Off mode.")] private UnityEvent onDisable = new UnityEvent();
     [SerializeField, Tooltip("Wether the button is on by default")] private bool isButtonOn = false;
     [SerializeField, Tooltip("A negative value means there is no limit.")] private int numberUses = -1;
+    [SerializeField] private Transform parent;
+    [SerializeField] private AudioClip[] sounds;
+    private AudioSource _audioSource;
 
     private bool CanUseButton => numberUses < 0 || numberUses > 0;
+
+    private void Awake()
+    {
+        _audioSource = GetComponentInChildren<AudioSource>();
+    }
 
     /// <summary>
     /// Interacts with the object
@@ -37,6 +47,7 @@ public class ItemInteract : MonoBehaviour
                 }
                 else if (CanUseButton)
                 {
+                    PlayOneSoundRandom();
                     UseDisable();
                 }
                 break;
@@ -56,10 +67,16 @@ public class ItemInteract : MonoBehaviour
     {
         onDisable.Invoke();
     }
+    
+    private void PlayOneSoundRandom()
+    {
+        _audioSource.PlayOneShot(sounds[Random.Range(0, sounds.Length)]);
+    }
 
     private void UseButton()
     {
-        onInteract.Invoke();
+        PlayOneSoundRandom();
+        onInteract.Invoke(parent);
         if (numberUses > 0)
         {
             numberUses--;

@@ -1,5 +1,7 @@
+using System;
 using Gravity;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Class making an object grabbable by the player
@@ -12,6 +14,8 @@ public class ItemGrab : MonoBehaviour
     //todo change that call from a string to an int or a list ;__;
     [SerializeField] private string nameLayerNoCollisionsPlayer = "Player";
     [SerializeField] private float percentTransparent = 0.5f;
+    [SerializeField] private AudioClip[] grabSounds;
+    [SerializeField] private AudioClip[] collisionSounds;
     protected Rigidbody Body;
     private MeshRenderer[] _renderers;
     private bool _isGrabbed;
@@ -19,6 +23,7 @@ public class ItemGrab : MonoBehaviour
     private float _dist;
     private Transform _grabAnchor;
     private LayerMask _originLayerMask;
+    private AudioSource _audioSource;
 
     private void Awake()
     {
@@ -26,6 +31,7 @@ public class ItemGrab : MonoBehaviour
         _renderers = GetComponents<MeshRenderer>();
         CustomGravity = GetComponent<CustomGravityRigidbody>();
         _originLayerMask = gameObject.layer;
+        _audioSource = GetComponentInChildren<AudioSource>();
     }
 
     /// <summary>
@@ -34,6 +40,7 @@ public class ItemGrab : MonoBehaviour
     /// <param name="anchor">the anchor</param>
     public virtual void Grab(Transform anchor)
     {
+        PlayOneSoundRandom(grabSounds);
         _grabAnchor = anchor;
         _dist = Vector3.Distance(anchor.position, transform.position);
         _isGrabbed = true;
@@ -81,9 +88,14 @@ public class ItemGrab : MonoBehaviour
 
     private void SwitchState()
     {
+        ChangeLayers(transform, _isGrabbed
+            ? nameLayerNoCollisionsPlayer
+            : LayerMask.LayerToName(_originLayerMask));
+        /*
         gameObject.layer = LayerMask.NameToLayer(_isGrabbed
             ? nameLayerNoCollisionsPlayer
             : LayerMask.LayerToName(_originLayerMask));
+        */
         Body.interpolation = _isGrabbed ? RigidbodyInterpolation.Interpolate : RigidbodyInterpolation.None;
         CustomGravity.EnableGravity = !_isGrabbed;
         foreach (var r in _renderers)
@@ -91,5 +103,24 @@ public class ItemGrab : MonoBehaviour
             Color c = r.material.color;
             r.material.color = new Color(c.r, c.g, c.b, _isGrabbed ? percentTransparent : 1f);
         }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        PlayOneSoundRandom(collisionSounds);
+    }
+
+    private void PlayOneSoundRandom(AudioClip[] sounds)
+    {
+        _audioSource.PlayOneShot(sounds[Random.Range(0, sounds.Length)]);
+    }
+
+    private void ChangeLayers(Transform t, string nameLayer)
+    {
+            t.gameObject.layer = LayerMask.NameToLayer(nameLayer);
+            for (int i = 0; i < t.childCount; i++)
+            {
+                ChangeLayers(t.GetChild(i), nameLayer);
+            }
     }
 }

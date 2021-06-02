@@ -4,5 +4,5 @@
 public static class StaticsValues
 {
     //todo refactor ?
-    public const float SMALLEST_INT = 0.0001f;
+    public const float SMALLEST_FLOAT = 0.0001f;
 }

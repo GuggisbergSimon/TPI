@@ -29,9 +29,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool invertAxisX, invertAxisY;
     [SerializeField] private float maxDistanceInteractable = 3f;
     [SerializeField] private LayerMask layerInteractable = -1;
-    [SerializeField] private float maxTimeThrow = 3f, throwStrength = 10f;
+    //[SerializeField] private float maxTimeThrow = 3f, throwStrength = 10f;
     [SerializeField] private float fallMultiplier = 0.5f, lowJumpMultiplier = 0.5f;
-    [SerializeField] private bool enablePushbackThrow;
+    //[SerializeField] private bool enablePushbackThrow;
 
     private Rigidbody _body, _connectedBody, _previousConnectedBody;
     private Vector3 _playerInput;
@@ -143,6 +143,8 @@ public class PlayerController : MonoBehaviour
         //once jump button pushed, the input stays saved as is until the jump is being dealt with in FixedUpdate
         _desiredJump |= Input.GetButtonDown("Jump");
 
+        //disabled throw options since it wouldn't fit the gameplay
+        /*
         if (Input.GetButtonDown("Throw") && _grabbedItem != null)
         {
             if (_throwCoroutine != null)
@@ -150,9 +152,10 @@ public class PlayerController : MonoBehaviour
                 StopCoroutine(_throwCoroutine);
             }
 
-            maxTimeThrow = maxTimeThrow <= 0f ? StaticsValues.SMALLEST_INT : maxTimeThrow;
+            maxTimeThrow = maxTimeThrow <= 0f ? StaticsValues.SMALLEST_FLOAT : maxTimeThrow;
             _throwCoroutine = StartCoroutine(Throwing(0f, 1f, 1 / maxTimeThrow));
         }
+        */
     }
 
     private void FixedUpdate()
@@ -381,6 +384,8 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < collision.contactCount; i++)
         {
             Vector3 normal = collision.GetContact(i).normal;
+            Debug.DrawLine(transform.position, transform.position + _upAxis * 3f, Color.green);
+            Debug.DrawLine(transform.position, transform.position + normal * 3f, Color.red);
             float upDot = Vector3.Dot(_upAxis, normal);
             //checks if the player is on ground/steep/stairs with an angle lower than maxGroundAngle/maxStairsAngle
             if (upDot >= minDot)
@@ -392,7 +397,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 //originally was -StaticsValues.SMALLEST_INT instead of 0, but led to bugs
-                if (upDot > 0f)
+                if (upDot > StaticsValues.SMALLEST_FLOAT)
                 {
                     _steepContactCount += 1;
                     _steepNormal += normal;
@@ -596,6 +601,7 @@ public class PlayerController : MonoBehaviour
         return (stairsMask & (1 << layer)) == 0 ? _minGroundDotProduct : _minStairsDotProduct;
     }
 
+    /*
     private void Throw(float percent)
     {
         if (_grabbedItem == null) return;
@@ -625,7 +631,7 @@ public class PlayerController : MonoBehaviour
 
         GameManager.Instance.UiManager.HudManager.LoadingFill(0f);
         Throw(1f);
-    }
+    }*/
 
     #endregion
 }
