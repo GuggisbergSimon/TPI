@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: GUI
   m_EditorClassIdentifier: 
   grid:
-    xzUnitSize: 4
-    yUnitSize: 4
+    xzUnitSize: 1
+    yUnitSize: 1
     cellCount: 50
-    gridHeight: 12
-    tintColor: {r: 0.23834105, g: 0.389676, b: 0.49056602, a: 0.15686275}
+    gridHeight: 0
+    tintColor: {r: 1, g: 1, b: 1, a: 0.49803922}
   palette:
     bgColor: 0
     snapshotCameraPitch: 225

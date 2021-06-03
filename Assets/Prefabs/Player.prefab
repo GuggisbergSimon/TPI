@@ -85,7 +85,7 @@ MonoBehaviour:
   maxAcceleration: 75
   maxSprintAcceleration: 75
   maxAirAcceleration: 20
-  jumpHeight: 1
+  jumpHeight: 0.5
   maxAirJumps: 0
   maxGroundAngle: 35
   maxStairsAngle: 40
@@ -126,7 +126,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -2924959155698182475, guid: de88cbc013f67254f936d739d8bf932f, type: 2}
   m_audioClip: {fileID: 8300000, guid: 10c7b2df68d0a9945846e2aa3823ec2f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.25
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0

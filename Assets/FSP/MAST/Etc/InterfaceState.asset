@@ -17,12 +17,12 @@ MonoBehaviour:
   previousBuildToolIndex: -1
   selectedBuildToolIndex: -1
   selectedPrefabIndex: -1
-  prefabPath: Assets/FSP/Modular Temple/Prefabs
+  prefabPath: Assets
   selectedPrefabPaletteFolderIndex: 0
-  prefabPaletteColumnCount: 4
+  prefabPaletteColumnCount: 3
   previousPaintToolIndex: -1
   selectedPaintToolIndex: -1
   selectedMaterialIndex: -1
-  materialPath: Assets/FSP/Modular Temple/Materials
+  materialPath: Assets
   selectedMaterialPaletteFolderIndex: 0
   materialPaletteColumnCount: 3
