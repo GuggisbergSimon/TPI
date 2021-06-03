@@ -64,7 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedAdjustment: 10
   maxAccelerationAdjustment: 100
-  nameLayerNoCollisionsPlayer: Player
+  nameLayerNoCollisionsPlayer: NoPlayer
   percentTransparent: 0.5
   grabSounds:
   - {fileID: 8300000, guid: 9b687cd413d36114f873926481c5944e, type: 3}
