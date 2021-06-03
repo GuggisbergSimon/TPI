@@ -8,12 +8,6 @@ public class InitializeButton : MonoBehaviour
 {
     private GameObject _lastSelect;
 
-    private void Start()
-    {
-        //todo check if no errors
-        //_lastSelect = new GameObject();
-    }
-
     private void Update()
     {
         if (!EventSystem.current.currentSelectedGameObject)

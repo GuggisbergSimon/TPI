@@ -20,7 +20,8 @@ public class ItemInteract : MonoBehaviour
     [SerializeField, Tooltip("If the type is OnOff, it will be called in Off mode.")] private UnityEvent onDisable = new UnityEvent();
     [SerializeField, Tooltip("Wether the button is on by default")] private bool isButtonOn = false;
     [SerializeField, Tooltip("A negative value means there is no limit.")] private int numberUses = -1;
-    [SerializeField] private Transform parent;
+    [SerializeField, Tooltip("The parent transform holding the object in its entirety")] private Transform parent;
+    [SerializeField] private string helpText = "Use e to interact";
     [SerializeField] private AudioClip[] sounds;
     private AudioSource _audioSource;
 
@@ -63,6 +64,11 @@ public class ItemInteract : MonoBehaviour
         }
     }
 
+    public void DisplayHelp()
+    {
+        GameManager.Instance.UiManager.HudManager.HelpInteract(true, helpText);
+    }
+
     private void UseDisable()
     {
         onDisable.Invoke();
@@ -80,6 +86,10 @@ public class ItemInteract : MonoBehaviour
         if (numberUses > 0)
         {
             numberUses--;
+            if (numberUses <= 0)
+            {
+                Destroy(this);
+            }
         }
     }
 }

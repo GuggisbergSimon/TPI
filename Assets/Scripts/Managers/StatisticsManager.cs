@@ -16,7 +16,8 @@ public class StatisticsManager : MonoBehaviour
 
     public int GetScore()
     {
-        return Mathf.CeilToInt(Score / (NbrJumps + 1));
+        //return Mathf.CeilToInt(Score / (NbrJumps + 1));
+        return Score;
     }
 
     public void Load()

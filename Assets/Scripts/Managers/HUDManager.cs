@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,7 +6,7 @@ public class HUDManager : MonoBehaviour
 {
     [SerializeField] private Image loadingImg;
     [SerializeField] private Transform cursorAnchor;
-    [SerializeField] private Transform helpGrab, helpInteract;
+    [SerializeField] private TextMeshProUGUI helpGrab, helpInteract;
     
     /// <summary>
     /// Updates the loading circle near the visor to the given percentage
@@ -20,13 +21,18 @@ public class HUDManager : MonoBehaviour
     {
         helpGrab.gameObject.SetActive(value);
     }
-    
-    
+
     public void HelpInteract(bool value)
     {
-        helpInteract.gameObject.SetActive(value);
+        HelpInteract(value, helpInteract.text);
     }
     
+    public void HelpInteract(bool value, string text)
+    {
+        helpInteract.gameObject.SetActive(value);
+        helpInteract.text = text;
+    }
+
     /// <summary>
     /// Adjusts the cursor pointing towards the item held
     /// </summary>

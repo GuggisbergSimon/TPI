@@ -1,9 +1,5 @@
 //some parts of the code taken from catlikecoding
 
-//todo tweak values - wip
-//TODO fix player able to wall jump, more difficult but still doable
-//todo credit : "AMONG DRIP" (https://skfb.ly/6XFtz) by RTFKT Studios is licensed under Creative Commons Attribution-NonCommercial (http://creativecommons.org/licenses/by-nc/4.0/).
-
 using System.Collections;
 using Gravity;
 using UnityEngine;
@@ -32,6 +28,8 @@ public class PlayerController : MonoBehaviour
     //[SerializeField] private float maxTimeThrow = 3f, throwStrength = 10f;
     [SerializeField] private float fallMultiplier = 0.5f, lowJumpMultiplier = 0.5f;
     //[SerializeField] private bool enablePushbackThrow;
+    [SerializeField] private AudioClip[] jumpSounds;
+    [SerializeField] private AudioClip[] fallSounds;
 
     private Rigidbody _body, _connectedBody, _previousConnectedBody;
     private Vector3 _playerInput;
@@ -46,6 +44,7 @@ public class PlayerController : MonoBehaviour
     private int _stepsSinceLastGrounded, _stepsSinceLastJump;
     private Vector3 _lastPos;
     private float _timeRecording;
+    private AudioSource _audioSource;
 
     public enum PlayerState
     {
@@ -84,6 +83,7 @@ public class PlayerController : MonoBehaviour
         _body.useGravity = false;
         _lastPos = transform.position;
         _timeRecording = Time.time;
+        _audioSource = GetComponent<AudioSource>();
         OnValidate();
     }
 
@@ -203,7 +203,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        //int count = _groundContactCount;
         EvaluateCollision(other);
+        /*if (_groundContactCount > count && Vector3.Dot(_velocity, -_upAxis) > Mathf.Cos(45f))
+        {
+            PlayOneSoundRandom(fallSounds);
+        }*/
     }
 
     private void OnCollisionStay(Collision other)
@@ -362,6 +367,7 @@ public class PlayerController : MonoBehaviour
         }
 
         GameManager.Instance.StatisticsManager.NbrJumps++;
+        PlayOneSoundRandom(jumpSounds);
         _stepsSinceLastJump = 0;
         _jumpPhase += 1;
         float jumpSpeed = Mathf.Sqrt(2f * gravity.magnitude * jumpHeight);
@@ -376,6 +382,11 @@ public class PlayerController : MonoBehaviour
         _velocity += jumpDirection * jumpSpeed;
         _velocity += jumpDirection * jumpSpeed;
     }
+    
+    private void PlayOneSoundRandom(AudioClip[] sounds)
+    {
+        _audioSource.PlayOneShot(sounds[Random.Range(0, sounds.Length)]);
+    }
 
     private void EvaluateCollision(Collision collision)
     {
@@ -384,8 +395,6 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < collision.contactCount; i++)
         {
             Vector3 normal = collision.GetContact(i).normal;
-            Debug.DrawLine(transform.position, transform.position + _upAxis * 3f, Color.green);
-            Debug.DrawLine(transform.position, transform.position + normal * 3f, Color.red);
             float upDot = Vector3.Dot(_upAxis, normal);
             //checks if the player is on ground/steep/stairs with an angle lower than maxGroundAngle/maxStairsAngle
             if (upDot >= minDot)
@@ -397,7 +406,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 //originally was -StaticsValues.SMALLEST_INT instead of 0, but led to bugs
-                if (upDot > StaticsValues.SMALLEST_FLOAT)
+                if (upDot > StaticsValues.SMALLEST_POSITIVE_FLOAT)
                 {
                     _steepContactCount += 1;
                     _steepNormal += normal;
@@ -488,11 +497,12 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    GameManager.Instance.UiManager.HudManager.HelpInteract(true);
+                    i.DisplayHelp();
                     return;
                 }
             }
         }
+        GameManager.Instance.UiManager.HudManager.HelpInteract(false);
         GameManager.Instance.UiManager.HudManager.HelpInteract(false);
     }
 

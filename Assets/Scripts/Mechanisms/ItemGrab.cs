@@ -11,7 +11,7 @@ public class ItemGrab : MonoBehaviour
 {
     [SerializeField] private float maxSpeedAdjustment = 10f, maxAccelerationAdjustment = 10f;
 
-    //todo change that call from a string to an int or a list ;__;
+    //todo change that call from a string to an int or something similar
     [SerializeField] private string nameLayerNoCollisionsPlayer = "Player";
     [SerializeField] private float percentTransparent = 0.5f;
     [SerializeField] private AudioClip[] grabSounds;

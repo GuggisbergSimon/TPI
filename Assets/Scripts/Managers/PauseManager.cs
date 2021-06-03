@@ -17,15 +17,14 @@ public class PauseManager : MonoBehaviour
         OpenUI(pausePanel, isPausing);
     }
     
-    
-    //todo test
     /// <summary>
     /// Opens the end panel, adjusting timescale and freezing player
     /// </summary>
     public void End()
     {
-        OpenUI(endPanel, true);
         GameManager.Instance.LevelManager.Player.Pause(PlayerController.PlayerState.End);
+        OpenUI(endPanel, true);
+        Time.timeScale = 1f;
     }
 
     private void OpenUI(GameObject g, bool isPausing)
@@ -42,7 +41,7 @@ public class PauseManager : MonoBehaviour
         {
             statisticsNbr.text = sm.GetScore() + "\n" + sm.VasesPicked + "\n" +
                                  sm.NbrJumps + "\n" +
-                                 Mathf.RoundToInt(sm.DistanceWalked) + "m\n " +
+                                 Mathf.RoundToInt(sm.DistanceWalked) + "m\n" +
                                  Mathf.RoundToInt(sm.TimeSpent) + "s\n";
         }
     }

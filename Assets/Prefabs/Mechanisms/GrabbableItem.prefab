@@ -67,7 +67,7 @@ MonoBehaviour:
   nameLayerNoCollisionsPlayer: Player
   percentTransparent: 0.5
   grabSounds:
-  - {fileID: 8300000, guid: 0b287ec04efddae49a2dc3b04bf01485, type: 3}
+  - {fileID: 8300000, guid: 9b687cd413d36114f873926481c5944e, type: 3}
   collisionSounds:
   - {fileID: 8300000, guid: 05ba6579d65cf544a861cae7f8e8a977, type: 3}
   - {fileID: 8300000, guid: 97c86957807b10448aab19c7220ebb1c, type: 3}

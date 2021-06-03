@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
             StopCoroutine(_timeScaleCoroutine);
         }
 
-        timeToChange = timeToChange <= 0f ? StaticsValues.SMALLEST_FLOAT : timeToChange;
+        timeToChange = timeToChange <= 0f ? StaticsValues.SMALLEST_POSITIVE_FLOAT : timeToChange;
         _timeScaleCoroutine = StartCoroutine(ChangingTimeScale(Time.timeScale, newTimeScale, 1 / timeToChange));
     }
 
