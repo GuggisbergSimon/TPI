@@ -3366,7 +3366,10 @@ PrefabInstance:
         Grab items while
         holding ctrl
 
-        Open pause menu with esc'
+        Sprint while holding shift
+
+        Open pause menu
+        with esc'
       objectReference: {fileID: 0}
     - target: {fileID: 8824985338541637531, guid: 456feb70756e1ee4bb9ff3993641f87b, type: 3}
       propertyPath: m_fontSize
