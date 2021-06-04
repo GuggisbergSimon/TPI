@@ -16,10 +16,10 @@ public class ItemGrab : MonoBehaviour
     [SerializeField] private float percentTransparent = 0.5f;
     [SerializeField] private AudioClip[] grabSounds;
     [SerializeField] private AudioClip[] collisionSounds;
-    protected Rigidbody Body;
+    private Rigidbody _body;
     private MeshRenderer[] _renderers;
     private bool _isGrabbed;
-    protected CustomGravityRigidbody CustomGravity;
+    private CustomGravityRigidbody _customGravity;
     private float _dist;
     private Transform _grabAnchor;
     private LayerMask _originLayerMask;
@@ -27,9 +27,9 @@ public class ItemGrab : MonoBehaviour
 
     private void Awake()
     {
-        Body = GetComponent<Rigidbody>();
+        _body = GetComponent<Rigidbody>();
         _renderers = GetComponents<MeshRenderer>();
-        CustomGravity = GetComponent<CustomGravityRigidbody>();
+        _customGravity = GetComponent<CustomGravityRigidbody>();
         _originLayerMask = gameObject.layer;
         _audioSource = GetComponentInChildren<AudioSource>();
     }
@@ -45,7 +45,7 @@ public class ItemGrab : MonoBehaviour
         _dist = Vector3.Distance(anchor.position, transform.position);
         _isGrabbed = true;
         SwitchState();
-        Body.velocity = Vector3.zero;
+        _body.velocity = Vector3.zero;
     }
 
     /// <summary>
@@ -56,7 +56,7 @@ public class ItemGrab : MonoBehaviour
     {
         _isGrabbed = false;
         SwitchState();
-        Body.velocity += velocity;
+        _body.velocity += velocity;
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ public class ItemGrab : MonoBehaviour
     /// <param name="strength">the strength applied to the object</param>
     public virtual void Throw(float strength)
     {
-        Body.AddForce((transform.position - _grabAnchor.position).normalized * strength);
+        _body.AddForce((transform.position - _grabAnchor.position).normalized * strength);
     }
 
     private void FixedUpdate()
@@ -73,7 +73,7 @@ public class ItemGrab : MonoBehaviour
         MoveUpdate();
     }
 
-    protected void MoveUpdate()
+    private void MoveUpdate()
     {
         if (!_isGrabbed)
         {
@@ -83,7 +83,7 @@ public class ItemGrab : MonoBehaviour
         Vector3 aim = _grabAnchor.forward * _dist - (transform.position - _grabAnchor.position);
 
         float maxSpeedChange = maxAccelerationAdjustment * Time.fixedDeltaTime;
-        Body.velocity = Vector3.MoveTowards(Body.velocity, aim * maxSpeedAdjustment, maxSpeedChange);
+        _body.velocity = Vector3.MoveTowards(_body.velocity, aim * maxSpeedAdjustment, maxSpeedChange);
     }
 
     private void SwitchState()
@@ -91,13 +91,8 @@ public class ItemGrab : MonoBehaviour
         ChangeLayers(transform, _isGrabbed
             ? nameLayerNoCollisionsPlayer
             : LayerMask.LayerToName(_originLayerMask));
-        /*
-        gameObject.layer = LayerMask.NameToLayer(_isGrabbed
-            ? nameLayerNoCollisionsPlayer
-            : LayerMask.LayerToName(_originLayerMask));
-        */
-        Body.interpolation = _isGrabbed ? RigidbodyInterpolation.Interpolate : RigidbodyInterpolation.None;
-        CustomGravity.EnableGravity = !_isGrabbed;
+        _body.interpolation = _isGrabbed ? RigidbodyInterpolation.Interpolate : RigidbodyInterpolation.None;
+        _customGravity.EnableGravity = !_isGrabbed;
         foreach (var r in _renderers)
         {
             Color c = r.material.color;
@@ -117,10 +112,10 @@ public class ItemGrab : MonoBehaviour
 
     private void ChangeLayers(Transform t, string nameLayer)
     {
-            t.gameObject.layer = LayerMask.NameToLayer(nameLayer);
-            for (int i = 0; i < t.childCount; i++)
-            {
-                ChangeLayers(t.GetChild(i), nameLayer);
-            }
+        t.gameObject.layer = LayerMask.NameToLayer(nameLayer);
+        for (int i = 0; i < t.childCount; i++)
+        {
+            ChangeLayers(t.GetChild(i), nameLayer);
+        }
     }
 }

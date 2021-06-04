@@ -72,6 +72,11 @@ public class MovingRoutine : MonoBehaviour
         }
     }*/
 
+    /// <summary>
+    /// Coroutine moving the object between the various points based th settings entered
+    /// </summary>
+    /// <returns>time between each each move of the object, either next frame or some seconds, if waiting</returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     private IEnumerator Moving()
     {
         while (CanMove)
@@ -124,6 +129,9 @@ public class MovingRoutine : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Displays the coordinates for ease of configuration
+    /// </summary>
     private void OnDrawGizmos()
     {
         if (!isActiveAndEnabled)

@@ -5,14 +5,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// Class behaving like a pressure plate found in numerous games
+/// </summary>
 [RequireComponent(typeof(Collider))]
 public class PressurePlate : MonoBehaviour
 {
-    [Serializable]
-    public class TriggerEvent : UnityEvent<Transform>
-    {
-    }
-
+    [Serializable] public class TriggerEvent : UnityEvent<Transform> {}
     [SerializeField] private TriggerEvent onEnter = new TriggerEvent();
     [SerializeField] private TriggerEvent onStay = new TriggerEvent();
     [SerializeField] private TriggerEvent onExit = new TriggerEvent();
@@ -46,7 +45,7 @@ public class PressurePlate : MonoBehaviour
             _nbrItemsStaying++;
         }
     }
-
+    
     private IEnumerator Wait(Transform t)
     {
         yield return new WaitForSeconds(timeToStay);

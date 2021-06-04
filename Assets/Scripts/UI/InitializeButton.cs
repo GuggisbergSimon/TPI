@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 /// <summary>
-/// Class for UI ensuring the last button used can not be unselected
+/// Class  ensuring the last button used can not be unselected
 /// </summary>
 public class InitializeButton : MonoBehaviour
 {

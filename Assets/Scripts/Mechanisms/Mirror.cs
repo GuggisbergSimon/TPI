@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Class projecting what a camera sees to a texture, on a quad ideally to serve as a mirror, does not respect perspective
+/// </summary>
 public class Mirror : MonoBehaviour
 {
     [SerializeField] private Vector2Int textureSize = new Vector2Int(512, 512);
@@ -30,8 +33,7 @@ public class Mirror : MonoBehaviour
         _cam.targetTexture = _renderTexture;
         _renderer.material.mainTexture = _renderTexture;
     }
-
-
+    
     private void OnDisable()
     {
         if (_renderTexture)

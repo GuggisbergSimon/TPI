@@ -1,8 +1,10 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class used by the pause menu to display statistics and change settings
+/// </summary>
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] private GameObject pausePanel, endPanel, settingsPanel;
@@ -28,16 +30,21 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    private void OpenUI(GameObject g, bool isPausing)
+    /// <summary>
+    /// Toggles a given UI
+    /// </summary>
+    /// <param name="ui">the UI to toggle</param>
+    /// <param name="isPausing">Wether we are pausing or not</param>
+    private void OpenUI(GameObject ui, bool isPausing)
     {
         settingsPanel.SetActive(false);
         Time.timeScale = isPausing ? 0f : 1f;
-        g.SetActive(isPausing);
+        ui.SetActive(isPausing);
         GameManager.Instance.LevelManager.Player.Pause(isPausing
             ? PlayerController.PlayerState.Pause
             : PlayerController.PlayerState.Idle);
         if (!isPausing) return;
-        g.GetComponentInChildren<Selectable>().Select();
+        ui.GetComponentInChildren<Selectable>().Select();
         StatisticsManager sm = GameManager.Instance.StatisticsManager;
         foreach (var statisticsNbr in statistics)
         {
@@ -64,34 +71,7 @@ public class PauseManager : MonoBehaviour
     {
         GameManager.Instance.QuitGame();
     }
-    
-    /// <summary>
-    /// Changes the master volume
-    /// </summary>
-    /// <param name="volume">The new volume</param>
-    public void ChangeVolumeMaster(float volume)
-    {
-        GameManager.Instance.SoundManager.SetFloat("MasterVolume", volume);
-    }
 
-    /// <summary>
-    /// Changes the music volume
-    /// </summary>
-    /// <param name="volume">The new volume</param>
-    public void ChangeVolumeMusic(float volume)
-    {
-        GameManager.Instance.SoundManager.SetFloat("MusicVolume", volume);
-    }
-
-    /// <summary>
-    /// Changes the sounds volume
-    /// </summary>
-    /// <param name="volume">The given volume</param>
-    public void ChangeVolumeSounds(float volume)
-    {
-        GameManager.Instance.SoundManager.SetFloat("SoundsVolume", volume);
-    } 
-    
     /// <summary>
     /// Changes the sensitivity of the mouse on the x axis to the value
     /// </summary>

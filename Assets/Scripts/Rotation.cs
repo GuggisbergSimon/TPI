@@ -6,7 +6,8 @@ using UnityEngine;
 public class Rotation : MonoBehaviour
 {
     //todo add different axis
-    [SerializeField, Tooltip("angle in degrees/seconds")] private float speed = 1f;
+    [SerializeField, Tooltip("angle in degrees/seconds")] 
+    private float speed = 1f;
 
     private void Update()
     {

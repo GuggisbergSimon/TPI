@@ -7,6 +7,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Image loadingImg;
     [SerializeField] private Transform cursorAnchor;
     [SerializeField] private TextMeshProUGUI helpGrab, helpInteract;
+
     
     /// <summary>
     /// Updates the loading circle near the visor to the given percentage
@@ -17,16 +18,29 @@ public class HUDManager : MonoBehaviour
         loadingImg.fillAmount = percent;
     }
 
+    /// <summary>
+    /// Toggles the help menu for grabbing items
+    /// </summary>
+    /// <param name="value">Wether we toggle it on or off</param>
     public void HelpGrab(bool value)
     {
         helpGrab.gameObject.SetActive(value);
     }
 
+    /// <summary>
+    /// Toggles the help menu for interacting with items
+    /// </summary>
+    /// <param name="value">Wether we toggle it on or off</param>
     public void HelpInteract(bool value)
     {
         HelpInteract(value, helpInteract.text);
     }
-    
+
+    /// <summary>
+    /// Toggles the help menu for interacting with items
+    /// </summary>
+    /// <param name="value">Wether we toggle it on or off</param>
+    /// <param name="text">Custom flavour text</param>
     public void HelpInteract(bool value, string text)
     {
         helpInteract.gameObject.SetActive(value);

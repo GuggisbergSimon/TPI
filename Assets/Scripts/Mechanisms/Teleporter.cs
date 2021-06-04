@@ -3,30 +3,10 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 /// <summary>
-/// Class teleporting a transform
+/// Class teleporting an object based on conditions
 /// </summary>
 public class Teleporter : MonoBehaviour
 {
-    /*
-    [CustomEditor(typeof(Teleporter))]
-    private class MyScriptEditor : Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            var myScript = target as Teleporter;
-            /*
-            myScript.flag = GUILayout.Toggle(myScript.flag, "Flag");
-            if (myScript.flag)
-                myScript.i = EditorGUILayout.IntSlider("I field:", myScript.i , 1 , 100);
-            
-            if (myScript.type == TeleportType.Global)
-            {
-                myScript.sameRotation = GUILayout.Toggle(myScript.sameRotation, "Same Rotation");
-            }
-
-        }
-    }*/
-
     private enum TeleportType
     {
         Global,

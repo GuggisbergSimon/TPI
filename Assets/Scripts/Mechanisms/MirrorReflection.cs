@@ -1,3 +1,5 @@
+//code taken from https://wiki.unity3d.com/index.php/MirrorReflection4
+
 using UnityEngine;
 using System.Collections;
  

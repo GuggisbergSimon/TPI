@@ -17,10 +17,14 @@ public class ItemInteract : MonoBehaviour
     [SerializeField] private ButtonType type = ButtonType.Repeat;
     [Serializable] public class InteractEvent : UnityEvent<Transform> {}
     [SerializeField] private InteractEvent onInteract = new InteractEvent();
-    [SerializeField, Tooltip("If the type is OnOff, it will be called in Off mode.")] private UnityEvent onDisable = new UnityEvent();
-    [SerializeField, Tooltip("Wether the button is on by default")] private bool isButtonOn = false;
-    [SerializeField, Tooltip("A negative value means there is no limit.")] private int numberUses = -1;
-    [SerializeField, Tooltip("The parent transform holding the object in its entirety")] private Transform parent;
+    [SerializeField, Tooltip("If the type is OnOff, it will be called in Off mode.")]
+    private UnityEvent onDisable = new UnityEvent();
+    [SerializeField, Tooltip("Wether the button is on by default")]
+    private bool isButtonOn = false;
+    [SerializeField, Tooltip("A negative value means there is no limit.")]
+    private int numberUses = -1;
+    [SerializeField, Tooltip("The parent transform holding the object in its entirety")]
+    private Transform parent;
     [SerializeField] private string helpText = "Use e to interact";
     [SerializeField] private AudioClip[] sounds;
     private AudioSource _audioSource;
@@ -51,6 +55,7 @@ public class ItemInteract : MonoBehaviour
                     PlayOneSoundRandom();
                     UseDisable();
                 }
+
                 break;
             case ButtonType.Repeat:
                 if (CanUseButton)
@@ -58,12 +63,16 @@ public class ItemInteract : MonoBehaviour
                     UseDisable();
                     UseButton();
                 }
+
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
     }
-
+    
+    /// <summary>
+    /// Displays the appropriate help text when called
+    /// </summary>
     public void DisplayHelp()
     {
         GameManager.Instance.UiManager.HudManager.HelpInteract(true, helpText);
@@ -73,7 +82,7 @@ public class ItemInteract : MonoBehaviour
     {
         onDisable.Invoke();
     }
-    
+
     private void PlayOneSoundRandom()
     {
         _audioSource.PlayOneShot(sounds[Random.Range(0, sounds.Length)]);

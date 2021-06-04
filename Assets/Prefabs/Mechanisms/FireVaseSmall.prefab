@@ -139,7 +139,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 3387478247876801432}
         m_TargetAssemblyTypeName: Vase, Assembly-CSharp
-        m_MethodName: IncrementStatistics
+        m_MethodName: Pick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
