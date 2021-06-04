@@ -10,6 +10,7 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject pausePanel, endPanel, settingsPanel;
     [SerializeField] private TextMeshProUGUI[] statistics;
     [SerializeField] private Slider sensitivityXSlider, sensitivityYSlider;
+    [SerializeField] private int nbrVasesTot = 15;
 
     /// <summary>
     /// Opens/closes the pause panel while adjusting timescale instantaneously, also freezes player
@@ -37,6 +38,7 @@ public class PauseManager : MonoBehaviour
     /// <param name="isPausing">Wether we are pausing or not</param>
     private void OpenUI(GameObject ui, bool isPausing)
     {
+        Cursor.visible = isPausing;
         settingsPanel.SetActive(false);
         Time.timeScale = isPausing ? 0f : 1f;
         ui.SetActive(isPausing);
@@ -48,7 +50,8 @@ public class PauseManager : MonoBehaviour
         StatisticsManager sm = GameManager.Instance.StatisticsManager;
         foreach (var statisticsNbr in statistics)
         {
-            statisticsNbr.text = sm.GetScore() + "\n" + sm.VasesPicked + "\n" +
+            statisticsNbr.text = sm.GetScore() + "\n" + sm.VasesPicked + 
+                                 "/" + nbrVasesTot + "\n" +
                                  sm.NbrJumps + "\n" +
                                  Mathf.RoundToInt(sm.TimeSpent) + "s\n" +
                                  Mathf.RoundToInt(sm.DistanceWalked) + "m\n";
@@ -80,7 +83,7 @@ public class PauseManager : MonoBehaviour
     {
         GameManager.Instance.LevelManager.Player.ChangeSensitivityX(x);
     }
-    
+
     /// <summary>
     /// Changes the sensitivity of the mouse on the yaxis to the value
     /// </summary>

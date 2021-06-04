@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
         _timeRecording = Time.time;
         _audioSource = GetComponent<AudioSource>();
         OnValidate();
+        Cursor.visible = false;
     }
 
     private void Update()

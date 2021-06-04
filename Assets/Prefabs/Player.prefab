@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInputSpace: {fileID: 2451131329314854621}
   maxSpeed: 10
-  maxSprintSpeed: 15
+  maxSprintSpeed: 17
   maxAcceleration: 75
   maxSprintAcceleration: 75
   maxAirAcceleration: 20
