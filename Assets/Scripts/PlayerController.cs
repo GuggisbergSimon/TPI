@@ -1,8 +1,5 @@
 //some parts of the code taken from catlikecoding
 
-//todo better snap player to ground if on moving platform descending
-//todo tweak values - wip
-
 using System.Collections;
 using Gravity;
 using UnityEngine;
@@ -23,14 +20,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Min(0f)] private float probeDistance = 1f;
     [SerializeField] private LayerMask probeMask = -1, stairsMask = -1;
     [Space] [Space] [SerializeField] private Vector2 mouseSensitivity = new Vector2(1000f, 1000f);
+    [SerializeField] private float maxSensitivity = 1000f, minSensitivity = 100f;
     [SerializeField, Range(0f, 90f)] private float minAngleLook = 70f, maxAngleLook = 70f;
     [SerializeField] private Camera cam;
     [SerializeField] private bool invertAxisX, invertAxisY;
     [SerializeField] private float maxDistanceInteractable = 3f;
+
     [SerializeField] private LayerMask layerInteractable = -1;
-    [SerializeField] private float maxTimeThrow = 3f, throwStrength = 10f;
+
+    //[SerializeField] private float maxTimeThrow = 3f, throwStrength = 10f;
     [SerializeField] private float fallMultiplier = 0.5f, lowJumpMultiplier = 0.5f;
-    [SerializeField] private bool enablePushbackThrow;
+
+    //[SerializeField] private bool enablePushbackThrow;
+    [SerializeField] private AudioClip[] jumpSounds;
 
     private Rigidbody _body, _connectedBody, _previousConnectedBody;
     private Vector3 _playerInput;
@@ -43,11 +45,15 @@ public class PlayerController : MonoBehaviour
     private int _jumpPhase;
     private float _minGroundDotProduct, _minStairsDotProduct;
     private int _stepsSinceLastGrounded, _stepsSinceLastJump;
+    private Vector3 _lastPos;
+    private float _timeRecording;
+    private AudioSource _audioSource;
 
-    private enum PlayerState
+    public enum PlayerState
     {
         Pause,
-        Idle
+        Idle,
+        End
     }
 
     private PlayerState _state = PlayerState.Idle;
@@ -67,7 +73,8 @@ public class PlayerController : MonoBehaviour
         set => invertAxisY = value;
     }
 
-    public Vector2 MouseSensitivity => mouseSensitivity;
+    public Vector2 MouseSensitivity =>
+        (mouseSensitivity - Vector2.one * minSensitivity) / (maxSensitivity - minSensitivity);
 
     private bool OnGround => _groundContactCount > 0;
     private bool OnSteep => _steepContactCount > 0;
@@ -78,14 +85,27 @@ public class PlayerController : MonoBehaviour
     {
         _body = GetComponent<Rigidbody>();
         _body.useGravity = false;
+        _lastPos = transform.position;
+        _timeRecording = Time.time;
+        _audioSource = GetComponent<AudioSource>();
         OnValidate();
     }
 
     private void Update()
     {
-        if (_state == PlayerState.Pause)
+        switch (_state)
         {
-            return;
+            case PlayerState.Pause:
+            {
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    GameManager.Instance.UiManager.PauseManager.Pause(false);
+                }
+
+                return;
+            }
+            case PlayerState.End:
+                return;
         }
 
         CheckInteraction();
@@ -94,11 +114,15 @@ public class PlayerController : MonoBehaviour
         AdjustCursor();
         AdjustRotationCam();
 
+        //increments the travelled distance to the statistics, divided by 2 because of the scale
+        GameManager.Instance.StatisticsManager.DistanceWalked += Vector3.Distance(_lastPos, transform.position) / 2f;
+        _lastPos = transform.position;
+
         //opens the pause menu
         if (Input.GetButtonDown("Cancel"))
         {
-            Pause(true);
-            GameManager.Instance.UIManager.Pause(true);
+            Pause(PlayerState.Pause);
+            GameManager.Instance.UiManager.PauseManager.Pause(true);
         }
 
 
@@ -124,6 +148,8 @@ public class PlayerController : MonoBehaviour
         //once jump button pushed, the input stays saved as is until the jump is being dealt with in FixedUpdate
         _desiredJump |= Input.GetButtonDown("Jump");
 
+        //disabled throw options since it wouldn't fit the gameplay
+        /*
         if (Input.GetButtonDown("Throw") && _grabbedItem != null)
         {
             if (_throwCoroutine != null)
@@ -131,9 +157,10 @@ public class PlayerController : MonoBehaviour
                 StopCoroutine(_throwCoroutine);
             }
 
-            maxTimeThrow = maxTimeThrow <= 0f ? StaticsValues.SMALLEST_INT : maxTimeThrow;
+            maxTimeThrow = maxTimeThrow <= 0f ? StaticsValues.SMALLEST_FLOAT : maxTimeThrow;
             _throwCoroutine = StartCoroutine(Throwing(0f, 1f, 1 / maxTimeThrow));
         }
+        */
     }
 
     private void FixedUpdate()
@@ -167,10 +194,6 @@ public class PlayerController : MonoBehaviour
 
         if (dotVelocityUp < 0 && !OnGround && !OnSteep)
         {
-            /*if (!_isFalling && !_isGrounded)
-            {
-                _isFalling = true;
-            }*/
             _velocity += (fallMultiplier - 1) * Time.deltaTime * gravity;
         }
         //applies lowJumpMultiplier
@@ -200,13 +223,19 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Pauses the player's behaviour
     /// </summary>
-    /// <param name="pause">Wether the player's behaviour is paused, or not</param>
-    public void Pause(bool pause)
+    /// <param name="state">the new state of the player</param>
+    public void Pause(PlayerState state)
     {
-        _state = pause ? PlayerState.Pause : PlayerState.Idle;
-        if (!pause)
+        _state = state;
+        switch (state)
         {
-            CheckDrop();
+            case PlayerState.Pause:
+                GameManager.Instance.StatisticsManager.TimeSpent += Time.time - _timeRecording;
+                break;
+            case PlayerState.Idle:
+                _timeRecording = Time.time;
+                CheckDrop();
+                break;
         }
     }
 
@@ -216,7 +245,8 @@ public class PlayerController : MonoBehaviour
     /// <param name="sensitivityPercent">The percentage</param>
     public void ChangeSensitivityX(float sensitivityPercent)
     {
-        mouseSensitivity = Vector2.right * (250f + 250f * sensitivityPercent) + Vector2.up * mouseSensitivity.y;
+        mouseSensitivity = Vector2.right * (minSensitivity + (maxSensitivity - minSensitivity) * sensitivityPercent) +
+                           Vector2.up * mouseSensitivity.y;
     }
 
     /// <summary>
@@ -225,7 +255,8 @@ public class PlayerController : MonoBehaviour
     /// <param name="sensitivityPercent">The percentage</param>
     public void ChangeSensitivityY(float sensitivityPercent)
     {
-        mouseSensitivity = Vector2.up * (250f + 250f * sensitivityPercent) + Vector2.right * mouseSensitivity.x;
+        mouseSensitivity = Vector2.up * (minSensitivity + (maxSensitivity - minSensitivity) * sensitivityPercent) +
+                           Vector2.right * mouseSensitivity.x;
     }
 
     #endregion
@@ -243,7 +274,7 @@ public class PlayerController : MonoBehaviour
 
     private void AdjustRotationBody()
     {
-        //todo smoothen rotation cam if change of gravity (see gravity cube for ex)
+        //todo smoothen rotation cam if change of gravity (see extreme examples with a gravity cube)
 
         //the rotation applied due to the gravity
         Quaternion gravityRot = Quaternion.FromToRotation(transform.up, _upAxis);
@@ -263,7 +294,7 @@ public class PlayerController : MonoBehaviour
         float speed = OnGround && Input.GetButton("Sprint") ? maxSprintSpeed : maxSpeed;
         Vector3 xAxis = _rightAxis;
         Vector3 zAxis = _forwardAxis;
-        
+
         xAxis = ProjectDirectionOnPlane(xAxis, _contactNormal);
         zAxis = ProjectDirectionOnPlane(zAxis, _contactNormal);
 
@@ -290,22 +321,22 @@ public class PlayerController : MonoBehaviour
             {
                 Vector3 camForward = cam.transform.forward;
                 Vector3 project = Vector3.ProjectOnPlane(diff, camForward);
-                GameManager.Instance.UIManager.AdjustCursor(true,
+                GameManager.Instance.UiManager.HudManager.AdjustCursor(true,
                     Vector3.SignedAngle(cam.transform.up, project, camForward));
             }
             else
             {
-                GameManager.Instance.UIManager.AdjustCursor(false, 0f);
+                GameManager.Instance.UiManager.HudManager.AdjustCursor(false, 0f);
             }
         }
     }
 
     private void Jump(Vector3 gravity)
     {
-        //the jump is always directed in the upAxis, can be changed to the ground normal but more interesting for physics based games
         //jumpPhase describes the number of times the player has jumped
         Vector3 jumpDirection;
-        /*if (OnGround)
+        /*
+        if (OnGround)
         {
             jumpDirection = _contactNormal;
         }
@@ -313,7 +344,8 @@ public class PlayerController : MonoBehaviour
         {
             jumpDirection = _steepNormal;
             _jumpPhase = 0;
-        }*/
+        }
+        */
         if (OnGround || OnSteep)
         {
             jumpDirection = _upAxis;
@@ -336,6 +368,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        GameManager.Instance.StatisticsManager.NbrJumps++;
+        PlayOneSoundRandom(jumpSounds);
         _stepsSinceLastJump = 0;
         _jumpPhase += 1;
         float jumpSpeed = Mathf.Sqrt(2f * gravity.magnitude * jumpHeight);
@@ -349,6 +383,11 @@ public class PlayerController : MonoBehaviour
 
         _velocity += jumpDirection * jumpSpeed;
         _velocity += jumpDirection * jumpSpeed;
+    }
+
+    private void PlayOneSoundRandom(AudioClip[] sounds)
+    {
+        _audioSource.PlayOneShot(sounds[Random.Range(0, sounds.Length)]);
     }
 
     private void EvaluateCollision(Collision collision)
@@ -368,7 +407,8 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (upDot > -0.01f)
+                //originally was -StaticsValues.SMALLEST_INT instead of 0, but led to bugs
+                if (upDot > StaticsValues.SMALLEST_POSITIVE_FLOAT)
                 {
                     _steepContactCount += 1;
                     _steepNormal += normal;
@@ -447,35 +487,51 @@ public class PlayerController : MonoBehaviour
 
     private void CheckInteraction()
     {
-        if (Input.GetButtonDown("Interact"))
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out var hit, maxDistanceInteractable,
+            layerInteractable) && hit.collider.transform.CompareTag("Item"))
         {
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out var hit, maxDistanceInteractable,
-                layerInteractable) && hit.collider.transform.CompareTag("Item"))
+            ItemInteract i = hit.collider.transform.GetComponent<ItemInteract>();
+            if (i != null)
             {
-                ItemInteract i = hit.collider.transform.GetComponent<ItemInteract>();
-                if (i != null)
+                if (Input.GetButtonDown("Interact"))
                 {
                     i.Interact();
                 }
+                else
+                {
+                    i.DisplayHelp();
+                    return;
+                }
             }
         }
+
+        GameManager.Instance.UiManager.HudManager.HelpInteract(false);
+        GameManager.Instance.UiManager.HudManager.HelpInteract(false);
     }
 
     private void CheckGrab()
     {
-        if (Input.GetButtonDown("Grab") && _grabbedItem == null)
+        if (_grabbedItem == null && Physics.Raycast(cam.transform.position, cam.transform.forward, out var hit,
+            maxDistanceInteractable,
+            layerInteractable) && hit.transform.CompareTag("Item"))
         {
-            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out var hit, maxDistanceInteractable,
-                layerInteractable) && hit.transform.CompareTag("Item"))
+            ItemGrab g = hit.transform.GetComponent<ItemGrab>();
+            if (g != null)
             {
-                ItemGrab g = hit.transform.GetComponent<ItemGrab>();
-                if (g != null)
+                if (Input.GetButtonDown("Grab"))
                 {
                     g.Grab(cam.transform);
                     _grabbedItem = g;
                 }
+                else
+                {
+                    GameManager.Instance.UiManager.HudManager.HelpGrab(true);
+                    return;
+                }
             }
         }
+
+        GameManager.Instance.UiManager.HudManager.HelpGrab(false);
     }
 
     private void CheckDrop()
@@ -488,11 +544,11 @@ public class PlayerController : MonoBehaviour
 
     private void Drop()
     {
-        GameManager.Instance.UIManager.AdjustCursor(false, 0f);
+        GameManager.Instance.UiManager.HudManager.AdjustCursor(false, 0f);
         _grabbedItem.Drop(_body.velocity);
         _grabbedItem = null;
     }
-    
+
     private bool SnapToGround()
     {
         if (_stepsSinceLastGrounded > 1 || _stepsSinceLastJump <= 2)
@@ -559,6 +615,7 @@ public class PlayerController : MonoBehaviour
         return (stairsMask & (1 << layer)) == 0 ? _minGroundDotProduct : _minStairsDotProduct;
     }
 
+    /*
     private void Throw(float percent)
     {
         if (_grabbedItem == null) return;
@@ -573,7 +630,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Throwing(float a, float b, float speed)
     {
-        GameManager.Instance.UIManager.LoadingFill(a);
+        GameManager.Instance.UiManager.HudManager.LoadingFill(a);
         for (float t = 0; t < 1f; t += Time.deltaTime * speed)
         {
             if (Input.GetButtonUp("Throw"))
@@ -582,13 +639,13 @@ public class PlayerController : MonoBehaviour
                 break;
             }
 
-            GameManager.Instance.UIManager.LoadingFill(Mathf.Lerp(a, b, t));
+            GameManager.Instance.UiManager.HudManager.LoadingFill(Mathf.Lerp(a, b, t));
             yield return null;
         }
 
-        GameManager.Instance.UIManager.LoadingFill(0f);
+        GameManager.Instance.UiManager.HudManager.LoadingFill(0f);
         Throw(1f);
-    }
+    }*/
 
     #endregion
 }

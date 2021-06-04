@@ -8,11 +8,13 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private UIManager _uiManager;
-    public UIManager UIManager => _uiManager;
+    public UIManager UiManager => _uiManager;
     private LevelManager _levelManager;
     public LevelManager LevelManager => _levelManager;
     private SoundManager _soundManager;
     public SoundManager SoundManager => _soundManager;
+    private StatisticsManager _statisticsManager;
+    public StatisticsManager StatisticsManager => _statisticsManager;
     public static GameManager Instance { get; private set; }
     private Coroutine _timeScaleCoroutine;
 
@@ -88,7 +90,7 @@ public class GameManager : MonoBehaviour
             StopCoroutine(_timeScaleCoroutine);
         }
 
-        timeToChange = timeToChange <= 0f ? StaticsValues.SMALLEST_INT : timeToChange;
+        timeToChange = timeToChange <= 0f ? StaticsValues.SMALLEST_POSITIVE_FLOAT : timeToChange;
         _timeScaleCoroutine = StartCoroutine(ChangingTimeScale(Time.timeScale, newTimeScale, 1 / timeToChange));
     }
 
@@ -116,6 +118,7 @@ public class GameManager : MonoBehaviour
         _uiManager = FindObjectOfType<UIManager>();
         _levelManager = FindObjectOfType<LevelManager>();
         _soundManager = FindObjectOfType<SoundManager>();
+        _statisticsManager = FindObjectOfType<StatisticsManager>();
     }
 
     #endregion
