@@ -689,11 +689,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8824985338541637531, guid: 456feb70756e1ee4bb9ff3993641f87b, type: 3}
       propertyPath: m_fontSize
-      value: 70
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8824985338541637531, guid: 456feb70756e1ee4bb9ff3993641f87b, type: 3}
       propertyPath: m_fontSizeBase
-      value: 70
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8824985338541637533, guid: 456feb70756e1ee4bb9ff3993641f87b, type: 3}
       propertyPath: m_Name
@@ -2178,14 +2178,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8824985338541637531, guid: 456feb70756e1ee4bb9ff3993641f87b, type: 3}
       propertyPath: m_text
-      value: 'Movement with wasd
+      value: 'Look around with the mouse
 
-        Look around with the mouse
+        Movement with wasd
 
         Jump
         with space
 
-        Interact with items with the e
+        Interact with items with e
 
         Grab items while
         holding ctrl
@@ -5401,8 +5401,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 199380712198029318}
   - {fileID: 199380712490929020}
+  - {fileID: 199380712198029318}
   - {fileID: 199380712128236169}
   - {fileID: 199380712971667122}
   - {fileID: 199380713328298484}
@@ -8637,7 +8637,7 @@ Transform:
   - {fileID: 199380713095727193}
   - {fileID: 199380713021846137}
   m_Father: {fileID: 199380712210229192}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &199380712496823829
 PrefabInstance:
