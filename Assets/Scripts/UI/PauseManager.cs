@@ -39,6 +39,7 @@ public class PauseManager : MonoBehaviour
     private void OpenUI(GameObject ui, bool isPausing)
     {
         Cursor.visible = isPausing;
+        Cursor.lockState = isPausing ? CursorLockMode.None : CursorLockMode.Locked;
         settingsPanel.SetActive(false);
         Time.timeScale = isPausing ? 0f : 1f;
         ui.SetActive(isPausing);

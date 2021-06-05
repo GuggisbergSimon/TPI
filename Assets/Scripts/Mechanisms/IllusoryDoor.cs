@@ -32,7 +32,8 @@ public class IllusoryDoor : MonoBehaviour
         if (!isCloseEnough) return;
         Vector3 illusoryToPlayer = player.position - transform.position;
         illusoryToPlayer = Vector3.ProjectOnPlane(illusoryToPlayer, Vector3.up);
-        Toggle(Vector3.Dot(player.forward, illusoryToPlayer) > Mathf.Cos(angleDiffMax));
+        float fwdDirection = Vector3.Dot(transform.forward, illusoryToPlayer) > 0 ? 1f : -1f;
+        Toggle(Vector3.Dot(player.forward, fwdDirection * transform.forward) > 0f);
     }
 
     /// <summary>

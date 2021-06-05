@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         OnValidate();
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
