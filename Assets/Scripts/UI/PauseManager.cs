@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
@@ -47,6 +48,7 @@ public class PauseManager : MonoBehaviour
             ? PlayerController.PlayerState.Pause
             : PlayerController.PlayerState.Idle);
         if (!isPausing) return;
+        EventSystem.current.SetSelectedGameObject(null);
         ui.GetComponentInChildren<Selectable>().Select();
         StatisticsManager sm = GameManager.Instance.StatisticsManager;
         foreach (var statisticsNbr in statistics)

@@ -6,7 +6,6 @@ using UnityEngine;
 public class IllusoryDoor : MonoBehaviour
 {
     [SerializeField] private float distToCheck = 10f;
-    [SerializeField, Range(0f, 90f)] private float angleDiffMax = 90f;
     [SerializeField, Tooltip("Toggles SpriteRenderer children as well as colliders")] private bool enableSpriteBehaviour = false;
     private Collider[] _colliders;
     private SpriteRenderer[] _sprites;

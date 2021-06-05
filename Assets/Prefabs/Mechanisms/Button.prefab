@@ -94,7 +94,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -2924959155698182475, guid: de88cbc013f67254f936d739d8bf932f, type: 2}
   m_audioClip: {fileID: 8300000, guid: 25ff759af00ef664f988295868dd7283, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -103,9 +103,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 0
   MinDistance: 0.5
-  MaxDistance: 5
+  MaxDistance: 100
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -310,5 +310,6 @@ MonoBehaviour:
   isButtonOn: 0
   numberUses: -1
   parent: {fileID: 4964204716765992089}
+  helpText: Use e to interact
   sounds:
   - {fileID: 8300000, guid: 25ff759af00ef664f988295868dd7283, type: 3}

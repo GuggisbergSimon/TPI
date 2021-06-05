@@ -29717,6 +29717,7 @@ Transform:
   - {fileID: 848621645}
   - {fileID: 1974209792}
   - {fileID: 2106320437}
+  - {fileID: 2100216083}
   - {fileID: 38357836}
   - {fileID: 1135702459}
   - {fileID: 216066777}
@@ -29727,7 +29728,6 @@ Transform:
   - {fileID: 1252190366}
   - {fileID: 362172644}
   - {fileID: 1145447043}
-  - {fileID: 2100216083}
   - {fileID: 414494572}
   - {fileID: 1614223606}
   - {fileID: 997083394}
@@ -34633,13 +34633,17 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3207325224171245079, guid: a0320003045bcfb42850808bab266e0a, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3207325224171245079, guid: a0320003045bcfb42850808bab266e0a, type: 3}
       propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3207325224171245079, guid: a0320003045bcfb42850808bab266e0a, type: 3}
       propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 721740577}
+      objectReference: {fileID: 826525639}
     - target: {fileID: 3207325224171245079, guid: a0320003045bcfb42850808bab266e0a, type: 3}
       propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -64332,7 +64336,7 @@ Transform:
   - {fileID: 1202888873}
   - {fileID: 1611337518}
   m_Father: {fileID: 980111814}
-  m_RootOrder: 57
+  m_RootOrder: 47
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2101742345
 PrefabInstance:
