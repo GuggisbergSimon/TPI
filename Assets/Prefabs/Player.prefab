@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7762fac154281ce40ae3cd0b4c18cfb6, type: 2}
+  - {fileID: 2100000, guid: c7291b7df31fc73439c3e5ee81cd973e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -179,7 +179,7 @@ MonoBehaviour:
   stairsMask:
     serializedVersion: 2
     m_Bits: 128
-  mouseSensitivity: {x: 1000, y: 1000}
+  mouseSensitivity: {x: 500, y: 500}
   maxSensitivity: 1000
   minSensitivity: 100
   minAngleLook: 80
@@ -191,7 +191,7 @@ MonoBehaviour:
   layerInteractable:
     serializedVersion: 2
     m_Bits: 4294967295
-  fallMultiplier: 5
+  fallMultiplier: 2.5
   lowJumpMultiplier: 2.5
   jumpSounds:
   - {fileID: 8300000, guid: b6674891a312d71468f32600416fc914, type: 3}
@@ -544,7 +544,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7762fac154281ce40ae3cd0b4c18cfb6, type: 2}
+  - {fileID: 2100000, guid: c7291b7df31fc73439c3e5ee81cd973e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
