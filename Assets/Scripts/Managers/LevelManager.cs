@@ -14,12 +14,14 @@ public class LevelManager : MonoBehaviour
 {
     private PlayerController _player;
     public PlayerController Player => _player;
+    public int NbrVases { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         //Alternative way to find the player, based on tags
         //_player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         _player = FindObjectOfType<PlayerController>();
+        NbrVases = FindObjectsOfType<PickUp>().Length;
     }
 
     /// <summary>

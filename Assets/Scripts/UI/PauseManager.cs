@@ -18,8 +18,7 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject pausePanel, endPanel, settingsPanel;
     [SerializeField] private TextMeshProUGUI[] statistics;
     [SerializeField] private Slider sensitivityXSlider, sensitivityYSlider;
-    [SerializeField] private int nbrVasesTot = 14;
-
+    
     /// <summary>
     /// Opens/closes the pause panel while adjusting timescale instantaneously, also freezes player
     /// </summary>
@@ -61,7 +60,7 @@ public class PauseManager : MonoBehaviour
         foreach (var statisticsNbr in statistics)
         {
             statisticsNbr.text = sm.GetScore() + "\n" + sm.VasesPicked + 
-                                 "/" + nbrVasesTot + "\n" +
+                                 "/" + GameManager.Instance.LevelManager.NbrVases + "\n" +
                                  sm.NbrJumps + "\n" +
                                  Mathf.RoundToInt(sm.DistanceWalked) + "m\n" + 
                                  Mathf.RoundToInt(sm.TimeSpent) + "s\n";
