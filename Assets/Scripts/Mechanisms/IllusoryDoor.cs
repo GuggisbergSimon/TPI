@@ -1,3 +1,10 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class handling Illusory Doors behaviour; only letting player go through by walking backwards
+ */
+
 using UnityEngine;
 
 /// <summary>

@@ -1,3 +1,10 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class reflecting things as a mirror surface, based on the matching shader
+ */
+
 //code taken from https://wiki.unity3d.com/index.php/MirrorReflection4
 
 using UnityEngine;
@@ -5,7 +12,10 @@ using System.Collections;
  
 // This is in fact just the Water script from Pro Standard Assets,
 // just with refraction stuff removed.
- 
+
+/// <summary>
+/// Class reflecting things as a mirror surface, based on the matching shader
+/// </summary>
 [ExecuteInEditMode] // Make mirror live-update even when not in play mode
 public class MirrorReflection : MonoBehaviour
 {

@@ -1,5 +1,15 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Manager handling various stats related to the game
+ */
+
 using UnityEngine;
 
+/// <summary>
+/// Manager handling various stats related to the game
+/// </summary>
 public class StatisticsManager : MonoBehaviour
 {
     public int VasesPicked { get; set; }

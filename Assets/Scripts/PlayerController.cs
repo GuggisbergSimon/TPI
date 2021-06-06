@@ -1,3 +1,10 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class handling movement and inputs from the player
+ */
+
 //some parts of the code taken from catlikecoding
 
 using Gravity;

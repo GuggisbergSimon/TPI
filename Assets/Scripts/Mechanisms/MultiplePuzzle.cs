@@ -1,3 +1,10 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class handling multiple interactions to solve a puzzle
+ */
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;

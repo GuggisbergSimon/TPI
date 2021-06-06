@@ -1,7 +1,14 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class moving the object on a sine wave
+ */
+
 using UnityEngine;
 
 /// <summary>
-/// Moves the object on a sine wave
+/// Class moving the object on a sine wave
 /// </summary>
 public class Sine : MonoBehaviour
 {

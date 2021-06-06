@@ -1,7 +1,14 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class rotating a transform around its y-axis
+ */
+
 using UnityEngine;
 
 /// <summary>
-/// Rotates a transform around its y-axis
+/// Class rotating a transform around its y-axis
 /// </summary>
 public class Rotation : MonoBehaviour
 {

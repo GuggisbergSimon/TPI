@@ -1,3 +1,10 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class calling UnityEvents when a collider stays in the trigger of this object for a certain time
+ */
+
 using System;
 using System.Collections;
 using System.Linq;

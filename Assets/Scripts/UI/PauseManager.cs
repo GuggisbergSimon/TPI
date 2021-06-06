@@ -1,3 +1,10 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class used by the pause menu to display statistics and change settings
+ */
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;

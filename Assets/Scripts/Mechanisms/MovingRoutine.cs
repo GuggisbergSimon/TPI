@@ -1,3 +1,10 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class moving the transform based on different parameters
+ */
+
 using System;
 using System.Collections;
 using UnityEngine;

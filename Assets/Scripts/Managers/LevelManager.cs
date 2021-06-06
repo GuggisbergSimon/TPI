@@ -1,3 +1,10 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Manager handling various objects in the scene, saving and loading
+ */
+
 using UnityEngine;
 
 /// <summary>

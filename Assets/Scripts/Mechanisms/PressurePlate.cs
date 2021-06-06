@@ -1,3 +1,10 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class behaving like a pressure plate found in numerous games
+ */
+
 using System;
 using System.Collections;
 using System.Linq;

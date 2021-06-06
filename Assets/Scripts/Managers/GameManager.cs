@@ -1,3 +1,10 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Main manager and static singleton, available at any time from any place in the code
+ */
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;

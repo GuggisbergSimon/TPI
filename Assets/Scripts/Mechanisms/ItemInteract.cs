@@ -1,3 +1,10 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class making an object interactable by the player
+ */
+
 using System;
 using UnityEngine;
 using UnityEngine.Events;

@@ -1,3 +1,10 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class projecting what a camera sees to a texture, on a quad ideally to serve as a mirror, does not respect perspective
+ */
+
 using UnityEngine;
 
 /// <summary>

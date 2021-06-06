@@ -1,10 +1,17 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class calling UnityEvents when a collider exits the trigger of this object
+ */
+
 using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
-/// Class calling UnityEvents when a collider enters in the trigger of this object
+/// Class calling UnityEvents when a collider exits the trigger of this object
 /// </summary>
 [RequireComponent(typeof(Collider))]
 public class TriggerExit : MonoBehaviour

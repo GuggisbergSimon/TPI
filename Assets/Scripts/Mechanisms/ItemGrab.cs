@@ -1,4 +1,10 @@
-using System;
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class making an object grabbable by the player
+ */
+
 using Gravity;
 using UnityEngine;
 using Random = UnityEngine.Random;

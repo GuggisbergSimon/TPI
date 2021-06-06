@@ -1,7 +1,14 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Manager handling the UI, only holds links to more specific UI managers
+ */
+
 using UnityEngine;
 
 /// <summary>
-/// Class handling the UI, only holds links to more specific UI managers
+/// Manager handling the UI, only holds links to more specific UI managers
 /// </summary>
 public class UIManager : MonoBehaviour
 {

@@ -1,5 +1,11 @@
-//Code taken from catlikecoding
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class handling various gravity sources present in the scene
+ */
 
+//Code taken from catlikecoding
 using System.Collections.Generic;
 using UnityEngine;
 

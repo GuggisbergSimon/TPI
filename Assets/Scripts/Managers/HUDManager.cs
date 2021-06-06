@@ -1,7 +1,17 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Manager handling various interactions HUD elements
+ */
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manager handling various interactions HUD elements
+/// </summary>
 public class HUDManager : MonoBehaviour
 {
     [SerializeField] private Image loadingImg;

@@ -1,5 +1,11 @@
-//Code taken from catlikecoding
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Gravity Source based on Unity's default behaviour
+ */
 
+//Code taken from catlikecoding
 using UnityEngine;
 
 namespace Gravity
