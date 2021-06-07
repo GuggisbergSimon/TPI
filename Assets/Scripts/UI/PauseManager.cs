@@ -15,10 +15,10 @@ using UnityEngine.UI;
 /// </summary>
 public class PauseManager : MonoBehaviour
 {
-    [SerializeField] private GameObject pausePanel, endPanel, settingsPanel;
+    [SerializeField] private GameObject pausePanel, endPanel, settingsPanel, helpPanel;
     [SerializeField] private TextMeshProUGUI[] statistics;
     [SerializeField] private Slider sensitivityXSlider, sensitivityYSlider;
-    
+
     /// <summary>
     /// Opens/closes the pause panel while adjusting timescale instantaneously, also freezes player
     /// </summary>
@@ -31,9 +31,9 @@ public class PauseManager : MonoBehaviour
     /// <summary>
     /// Opens the end panel, adjusting timescale and freezing player
     /// </summary>
-    public void End()
+    public void End(bool isEnding)
     {
-        OpenUI(endPanel, true);
+        OpenUI(endPanel, isEnding);
         Time.timeScale = 1f;
         GameManager.Instance.LevelManager.Player.Pause(PlayerController.PlayerState.End);
     }
@@ -48,6 +48,7 @@ public class PauseManager : MonoBehaviour
         Cursor.visible = isPausing;
         Cursor.lockState = isPausing ? CursorLockMode.None : CursorLockMode.Locked;
         settingsPanel.SetActive(false);
+        helpPanel.SetActive(false);
         Time.timeScale = isPausing ? 0f : 1f;
         ui.SetActive(isPausing);
         GameManager.Instance.LevelManager.Player.Pause(isPausing
@@ -59,11 +60,12 @@ public class PauseManager : MonoBehaviour
         StatisticsManager sm = GameManager.Instance.StatisticsManager;
         foreach (var statisticsNbr in statistics)
         {
-            statisticsNbr.text = sm.GetScore() + "\n" + sm.VasesPicked + 
+            float seconds = Mathf.RoundToInt(sm.TimeSpent);
+            statisticsNbr.text = sm.GetScore() + "\n" + sm.VasesPicked +
                                  "/" + GameManager.Instance.LevelManager.NbrVases + "\n" +
                                  sm.NbrJumps + "\n" +
-                                 Mathf.RoundToInt(sm.DistanceWalked) + "m\n" + 
-                                 Mathf.RoundToInt(sm.TimeSpent) + "s\n";
+                                 Mathf.RoundToInt(sm.DistanceWalked) + "m\n" +
+                                 Mathf.Floor(seconds / 60f) + "m" + seconds % 60f + "s\n";
         }
     }
 

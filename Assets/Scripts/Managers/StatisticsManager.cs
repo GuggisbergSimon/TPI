@@ -5,6 +5,7 @@
  * Description : Manager handling various stats related to the game
  */
 
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -13,6 +14,7 @@ using UnityEngine;
 public class StatisticsManager : MonoBehaviour
 {
     private int _vasesPicked;
+    private AudioSource _audioSource;
 
     public int VasesPicked
     {
@@ -22,7 +24,7 @@ public class StatisticsManager : MonoBehaviour
             _vasesPicked = value;
             if (value >= GameManager.Instance.LevelManager.NbrVases)
             {
-                //todo special something for completionists
+                _audioSource.Play();
             }
         }
     }
@@ -31,6 +33,11 @@ public class StatisticsManager : MonoBehaviour
     public int Score { get; set; }
     public int NbrJumps { get; set; }
 
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     /// <summary>
     /// Gets the score, can be calculated with a custom formula
