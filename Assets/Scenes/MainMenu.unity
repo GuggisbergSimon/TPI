@@ -216,7 +216,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8824985338541637531, guid: 456feb70756e1ee4bb9ff3993641f87b, type: 3}
       propertyPath: m_text
-      value: a short game made within 45h by @strueux
+      value: 'a short game made within 45h by @strueux
+
+        more games on ataor.itch.io'
       objectReference: {fileID: 0}
     - target: {fileID: 8824985338541637531, guid: 456feb70756e1ee4bb9ff3993641f87b, type: 3}
       propertyPath: m_fontSize
