@@ -12,7 +12,20 @@ using UnityEngine;
 /// </summary>
 public class StatisticsManager : MonoBehaviour
 {
-    public int VasesPicked { get; set; }
+    private int _vasesPicked;
+
+    public int VasesPicked
+    {
+        get => _vasesPicked;
+        set
+        {
+            _vasesPicked = value;
+            if (value >= GameManager.Instance.LevelManager.NbrVases)
+            {
+                //todo special something for completionists
+            }
+        }
+    }
     public float DistanceWalked { get; set; }
     public float TimeSpent { get; set; }
     public int Score { get; set; }
