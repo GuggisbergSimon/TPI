@@ -39,6 +39,14 @@ public class PauseManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Opens a hook to the dev's itch page
+    /// </summary>
+    public void OpenHook()
+    {
+        Application.OpenURL("https://ataor.itch.io/");
+    }
+
+    /// <summary>
     /// Toggles a given UI
     /// </summary>
     /// <param name="ui">the UI to toggle</param>

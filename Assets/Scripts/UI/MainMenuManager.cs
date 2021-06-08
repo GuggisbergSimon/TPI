@@ -27,4 +27,12 @@ public class MainMenuManager : MonoBehaviour
     {
         GameManager.Instance.QuitGame();
     }
+    
+    /// <summary>
+    /// Opens a hook to the dev's itch page
+    /// </summary>
+    public void OpenHook()
+    {
+        Application.OpenURL("https://ataor.itch.io/");
+    }
 }
