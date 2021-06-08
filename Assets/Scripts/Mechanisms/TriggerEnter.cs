@@ -1,3 +1,10 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class calling UnityEvents when a collider enters in the trigger of this object
+ */
+
 using System;
 using System.Linq;
 using UnityEngine;

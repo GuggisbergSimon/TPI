@@ -1,5 +1,11 @@
-//Code taken from catlikecoding
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class modifying Rigidbody's behaviour in order to react to gravity sources
+ */
 
+//Code taken from catlikecoding
 using UnityEngine;
 
 namespace Gravity

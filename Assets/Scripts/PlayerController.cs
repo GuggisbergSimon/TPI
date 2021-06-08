@@ -1,18 +1,25 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class handling movement and inputs from the player
+ */
+
 //some parts of the code taken from catlikecoding
 
-using System.Collections;
 using Gravity;
 using UnityEngine;
 
+/// <summary>
+/// Class handling movement and inputs from the player
+/// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Transform playerInputSpace;
     [SerializeField, Range(0f, 100f)] private float maxSpeed = 10f, maxSprintSpeed = 20f;
-
     [SerializeField, Range(0f, 100f)]
     private float maxAcceleration = 10f, maxSprintAcceleration = 20f, maxAirAcceleration = 1f;
-
     [SerializeField, Range(0f, 10f)] private float jumpHeight = 2f;
     [SerializeField, Range(0, 5)] private int maxAirJumps;
     [SerializeField, Range(0, 90)] private float maxGroundAngle = 25f, maxStairsAngle = 50f;
@@ -25,15 +32,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private bool invertAxisX, invertAxisY;
     [SerializeField] private float maxDistanceInteractable = 3f;
-
     [SerializeField] private LayerMask layerInteractable = -1;
-
     //[SerializeField] private float maxTimeThrow = 3f, throwStrength = 10f;
     [SerializeField] private float fallMultiplier = 0.5f, lowJumpMultiplier = 0.5f;
-
     //[SerializeField] private bool enablePushbackThrow;
     [SerializeField] private AudioClip[] jumpSounds;
-
     private Rigidbody _body, _connectedBody, _previousConnectedBody;
     private Vector3 _playerInput;
     private Vector3 _velocity, _connectionVelocity;
@@ -61,18 +64,6 @@ public class PlayerController : MonoBehaviour
     private ItemGrab _grabbedItem;
     private Coroutine _throwCoroutine;
 
-    public bool InvertAxisX
-    {
-        get => invertAxisX;
-        set => invertAxisX = value;
-    }
-
-    public bool InvertAxisY
-    {
-        get => invertAxisY;
-        set => invertAxisY = value;
-    }
-
     public Vector2 MouseSensitivity =>
         (mouseSensitivity - Vector2.one * minSensitivity) / (maxSensitivity - minSensitivity);
 
@@ -89,6 +80,8 @@ public class PlayerController : MonoBehaviour
         _timeRecording = Time.time;
         _audioSource = GetComponent<AudioSource>();
         OnValidate();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()

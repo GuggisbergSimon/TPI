@@ -1,11 +1,21 @@
-using System;
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class used by the pause menu to display statistics and change settings
+ */
+
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class used by the pause menu to display statistics and change settings
+/// </summary>
 public class PauseManager : MonoBehaviour
 {
-    [SerializeField] private GameObject pausePanel, endPanel, settingsPanel;
+    [SerializeField] private GameObject pausePanel, endPanel, settingsPanel, helpPanel;
     [SerializeField] private TextMeshProUGUI[] statistics;
     [SerializeField] private Slider sensitivityXSlider, sensitivityYSlider;
 
@@ -21,30 +31,41 @@ public class PauseManager : MonoBehaviour
     /// <summary>
     /// Opens the end panel, adjusting timescale and freezing player
     /// </summary>
-    public void End()
+    public void End(bool isEnding)
     {
-        GameManager.Instance.LevelManager.Player.Pause(PlayerController.PlayerState.End);
-        OpenUI(endPanel, true);
+        OpenUI(endPanel, isEnding);
         Time.timeScale = 1f;
+        GameManager.Instance.LevelManager.Player.Pause(PlayerController.PlayerState.End);
     }
 
-    private void OpenUI(GameObject g, bool isPausing)
+    /// <summary>
+    /// Toggles a given UI
+    /// </summary>
+    /// <param name="ui">the UI to toggle</param>
+    /// <param name="isPausing">Wether we are pausing or not</param>
+    private void OpenUI(GameObject ui, bool isPausing)
     {
+        Cursor.visible = isPausing;
+        Cursor.lockState = isPausing ? CursorLockMode.None : CursorLockMode.Locked;
         settingsPanel.SetActive(false);
+        helpPanel.SetActive(false);
         Time.timeScale = isPausing ? 0f : 1f;
-        g.SetActive(isPausing);
+        ui.SetActive(isPausing);
         GameManager.Instance.LevelManager.Player.Pause(isPausing
             ? PlayerController.PlayerState.Pause
             : PlayerController.PlayerState.Idle);
         if (!isPausing) return;
-        g.GetComponentInChildren<Selectable>().Select();
+        EventSystem.current.SetSelectedGameObject(null);
+        ui.GetComponentInChildren<Selectable>().Select();
         StatisticsManager sm = GameManager.Instance.StatisticsManager;
         foreach (var statisticsNbr in statistics)
         {
-            statisticsNbr.text = sm.GetScore() + "\n" + sm.VasesPicked + "\n" +
+            float seconds = Mathf.RoundToInt(sm.TimeSpent);
+            statisticsNbr.text = sm.GetScore() + "\n" + sm.VasesPicked +
+                                 "/" + GameManager.Instance.LevelManager.NbrVases + "\n" +
                                  sm.NbrJumps + "\n" +
-                                 Mathf.RoundToInt(sm.TimeSpent) + "s\n" +
-                                 Mathf.RoundToInt(sm.DistanceWalked) + "m\n";
+                                 Mathf.RoundToInt(sm.DistanceWalked) + "m\n" +
+                                 Mathf.Floor(seconds / 60f) + "m" + seconds % 60f + "s\n";
         }
     }
 
@@ -64,34 +85,7 @@ public class PauseManager : MonoBehaviour
     {
         GameManager.Instance.QuitGame();
     }
-    
-    /// <summary>
-    /// Changes the master volume
-    /// </summary>
-    /// <param name="volume">The new volume</param>
-    public void ChangeVolumeMaster(float volume)
-    {
-        GameManager.Instance.SoundManager.SetFloat("MasterVolume", volume);
-    }
 
-    /// <summary>
-    /// Changes the music volume
-    /// </summary>
-    /// <param name="volume">The new volume</param>
-    public void ChangeVolumeMusic(float volume)
-    {
-        GameManager.Instance.SoundManager.SetFloat("MusicVolume", volume);
-    }
-
-    /// <summary>
-    /// Changes the sounds volume
-    /// </summary>
-    /// <param name="volume">The given volume</param>
-    public void ChangeVolumeSounds(float volume)
-    {
-        GameManager.Instance.SoundManager.SetFloat("SoundsVolume", volume);
-    } 
-    
     /// <summary>
     /// Changes the sensitivity of the mouse on the x axis to the value
     /// </summary>
@@ -100,7 +94,7 @@ public class PauseManager : MonoBehaviour
     {
         GameManager.Instance.LevelManager.Player.ChangeSensitivityX(x);
     }
-    
+
     /// <summary>
     /// Changes the sensitivity of the mouse on the yaxis to the value
     /// </summary>

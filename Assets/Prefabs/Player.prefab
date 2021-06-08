@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7762fac154281ce40ae3cd0b4c18cfb6, type: 2}
+  - {fileID: 2100000, guid: c7291b7df31fc73439c3e5ee81cd973e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInputSpace: {fileID: 2451131329314854621}
   maxSpeed: 10
-  maxSprintSpeed: 15
+  maxSprintSpeed: 17
   maxAcceleration: 75
   maxSprintAcceleration: 75
   maxAirAcceleration: 20
@@ -179,23 +179,22 @@ MonoBehaviour:
   stairsMask:
     serializedVersion: 2
     m_Bits: 128
-  mouseSensitivity: {x: 1000, y: 1000}
+  mouseSensitivity: {x: 500, y: 500}
+  maxSensitivity: 1000
+  minSensitivity: 100
   minAngleLook: 80
   maxAngleLook: 80
   cam: {fileID: 2451131330218545398}
   invertAxisX: 0
   invertAxisY: 0
-  maxDistanceInteractable: 5
+  maxDistanceInteractable: 7.5
   layerInteractable:
     serializedVersion: 2
     m_Bits: 4294967295
-  fallMultiplier: 5
+  fallMultiplier: 2.5
   lowJumpMultiplier: 2.5
   jumpSounds:
   - {fileID: 8300000, guid: b6674891a312d71468f32600416fc914, type: 3}
-  fallSounds:
-  - {fileID: 8300000, guid: 6e2e7695f2503da4da90c9a8f810aeaa, type: 3}
-  - {fileID: 8300000, guid: 997abee33cf357048aaac3a41612151a, type: 3}
 --- !u!82 &1997309735
 AudioSource:
   m_ObjectHideFlags: 0
@@ -303,6 +302,7 @@ GameObject:
   - component: {fileID: 2451131330218545393}
   - component: {fileID: 2451131330218545398}
   - component: {fileID: 2451131330218545399}
+  - component: {fileID: 2451131330879618440}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -348,7 +348,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1500
+  far clip plane: 9000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -375,6 +375,66 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2451131330218545396}
   m_Enabled: 1
+--- !u!114 &2451131330879618440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2451131330218545396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 2451131330218545393}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 2
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &2451131330674579716
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2451131330674579719}
   - component: {fileID: 2451131330674579718}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: BlobProjector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -484,7 +544,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7762fac154281ce40ae3cd0b4c18cfb6, type: 2}
+  - {fileID: 2100000, guid: c7291b7df31fc73439c3e5ee81cd973e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

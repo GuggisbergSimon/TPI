@@ -1,8 +1,15 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Class ensuring the last button used can not be unselected
+ */
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 /// <summary>
-/// Class for UI ensuring the last button used can not be unselected
+/// Class ensuring the last button used can not be unselected
 /// </summary>
 public class InitializeButton : MonoBehaviour
 {

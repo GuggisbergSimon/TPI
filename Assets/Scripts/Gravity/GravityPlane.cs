@@ -1,5 +1,11 @@
-//Code taken from catlikecoding
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Gravity Source based on a plane shape, affecting all items between the y-position (up) of the plane and its range
+ */
 
+//Code taken from catlikecoding
 using UnityEngine;
 
 namespace Gravity

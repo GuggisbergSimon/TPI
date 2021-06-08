@@ -1,3 +1,10 @@
+/*
+ * Author : Simon Guggisberg
+ * Date : 06.06.2021
+ * Location : ETML
+ * Description : Main manager and static singleton, available at any time from any place in the code
+ */
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,8 +18,6 @@ public class GameManager : MonoBehaviour
     public UIManager UiManager => _uiManager;
     private LevelManager _levelManager;
     public LevelManager LevelManager => _levelManager;
-    private SoundManager _soundManager;
-    public SoundManager SoundManager => _soundManager;
     private StatisticsManager _statisticsManager;
     public StatisticsManager StatisticsManager => _statisticsManager;
     public static GameManager Instance { get; private set; }
@@ -98,6 +103,13 @@ public class GameManager : MonoBehaviour
 
     #region Custom Private Methods
 
+    /// <summary>
+    /// Coroutine gradually changing timescale
+    /// </summary>
+    /// <param name="a">initial timescale</param>
+    /// <param name="b">final timescale</param>
+    /// <param name="speed">the speed it changes</param>
+    /// <returns>the time elapsed between each call of that coroutin</returns>
     private IEnumerator ChangingTimeScale(float a, float b, float speed)
     {
         for (float t = 0; t < 1f; t += Time.deltaTime * speed)
@@ -113,11 +125,13 @@ public class GameManager : MonoBehaviour
         Setup();
     }
 
+    /// <summary>
+    /// Setup the GameManager for each scene, loading up different managers
+    /// </summary>
     private void Setup()
     {
         _uiManager = FindObjectOfType<UIManager>();
         _levelManager = FindObjectOfType<LevelManager>();
-        _soundManager = FindObjectOfType<SoundManager>();
         _statisticsManager = FindObjectOfType<StatisticsManager>();
     }
 
