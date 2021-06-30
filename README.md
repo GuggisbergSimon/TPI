@@ -7,4 +7,6 @@ a 90h work in total
 
 https://ataor.itch.io/
 
+The content of that repository can be freely used for educational purposes only.
+
 ![Screenshot 2021-06-04 135556_wallpaper](https://user-images.githubusercontent.com/43808186/121177868-306f1780-c85e-11eb-8c3e-0db1d5d3c0b9.png)
